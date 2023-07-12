@@ -66,11 +66,47 @@ ThemeData getApplicationTheme() {
       caption: getRegularStyle(
         color: ColorManager.grey1,
       ),
-      bodyText1: getRegularStyle(
+      bodyText1: getRegularStyle(color: ColorManager.grey,),
+    ),
+
+    // Input decoration theme text form field ----------------------------------
+    inputDecorationTheme: InputDecorationTheme(
+      contentPadding: const EdgeInsets.all(AppPadding.p8),
+      hintStyle: getRegularStyle(color: ColorManager.grey1),
+      labelStyle: getMediumStyle(color: ColorManager.grey),
+      errorStyle: getRegularStyle(color: ColorManager.error),
+      // Border ----------------------------------------------------------------
+      enabledBorder: OutlineInputBorder(
+        borderSide: BorderSide(
           color: ColorManager.grey,
+          width: AppSize.s1_5,
+        ),
+        borderRadius: const BorderRadius.all(Radius.circular(AppSize.s8)),
+      ),
+      // Focused border --------------------------------------------------------
+      focusedBorder: OutlineInputBorder(
+        borderSide: BorderSide(
+          color: ColorManager.primary,
+          width: AppSize.s1_5,
+        ),
+        borderRadius: const BorderRadius.all(Radius.circular(AppSize.s8)),
+      ),
+      // Error border ----------------------------------------------------------
+      errorBorder: OutlineInputBorder(
+        borderSide: BorderSide(
+          color: ColorManager.error,
+          width: AppSize.s1_5,
+        ),
+        borderRadius: const BorderRadius.all(Radius.circular(AppSize.s8)),
+      ),
+      // Focused error border --------------------------------------------------
+      focusedErrorBorder: OutlineInputBorder(
+        borderSide: BorderSide(
+          color: ColorManager.primary,
+          width: AppSize.s1_5,
+        ),
+        borderRadius: const BorderRadius.all(Radius.circular(AppSize.s8)),
       ),
     ),
-    // Input decoration theme text form field ----------------------------------
-
   );
 }
