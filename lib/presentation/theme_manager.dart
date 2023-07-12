@@ -41,6 +41,7 @@ ThemeData getApplicationTheme() {
       buttonColor: ColorManager.primary,
       splashColor: ColorManager.primaryOpacity70,
     ),
+
     // Elevated button theme ---------------------------------------------------
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
@@ -51,7 +52,24 @@ ThemeData getApplicationTheme() {
         ),
       ),
     ),
+
     // Text theme --------------------------------------------------------------
+    textTheme: TextTheme(
+      headline1: getSemiBoldStyle(
+        color: ColorManager.darkGrey,
+        fontSize: FontSize.s16,
+      ),
+      subtitle1: getMediumStyle(
+        color: ColorManager.lightGrey,
+        fontSize: FontSize.s14,
+      ),
+      caption: getRegularStyle(
+        color: ColorManager.grey1,
+      ),
+      bodyText1: getRegularStyle(
+          color: ColorManager.grey,
+      ),
+    ),
     // Input decoration theme text form field ----------------------------------
 
   );
