@@ -1,8 +1,9 @@
-import 'package:city_guide/presentation/color_manager.dart';
-import 'package:city_guide/presentation/font_manager.dart';
-import 'package:city_guide/presentation/style_manager.dart';
-import 'package:city_guide/presentation/value_manager.dart';
+import 'package:city_guide/presentation/ressource/color_manager.dart';
+import 'package:city_guide/presentation/ressource/style_manager.dart';
+import 'package:city_guide/presentation/ressource/value_manager.dart';
 import 'package:flutter/material.dart';
+
+import 'font_manager.dart';
 
 ThemeData getApplicationTheme() {
   return ThemeData(
