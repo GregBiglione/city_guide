@@ -13,7 +13,7 @@ ThemeData getApplicationTheme() {
     disabledColor: ColorManager.grey1,
     colorScheme: ColorScheme.fromSwatch().copyWith(secondary: ColorManager.grey),
 
-    // Ripple theme ---------------------------------------------------------
+    // Ripple theme ------------------------------------------------------------
     splashColor: ColorManager.primaryOpacity70,
     // Card view theme ---------------------------------------------------------
     cardTheme: CardTheme(
@@ -33,7 +33,24 @@ ThemeData getApplicationTheme() {
         fontSize: FontSize.s16,
       ),
     ),
+
     // Button theme ------------------------------------------------------------
+    buttonTheme: ButtonThemeData(
+      shape: const StadiumBorder(),
+      disabledColor: ColorManager.grey1,
+      buttonColor: ColorManager.primary,
+      splashColor: ColorManager.primaryOpacity70,
+    ),
+    // Elevated button theme ---------------------------------------------------
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        textStyle: getRegularStyle(color: ColorManager.white),
+        backgroundColor: ColorManager.primary,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(AppSize.s12),
+        ),
+      ),
+    ),
     // Text theme --------------------------------------------------------------
     // Input decoration theme text form field ----------------------------------
 
