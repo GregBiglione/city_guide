@@ -16,7 +16,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
     return Scaffold(
       backgroundColor: ColorManager.white,
       body: const Center(
-          child: Text(AppString.onBoardingMessage),
+          child: Text(AppString.onBoardingTitle1),
       ),
     );
   }
