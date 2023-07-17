@@ -1,3 +1,4 @@
+import 'package:city_guide/presentation/register/register_view.dart';
 import 'package:city_guide/presentation/ressource/asset_manager.dart';
 import 'package:city_guide/presentation/ressource/color_manager.dart';
 import 'package:city_guide/presentation/ressource/value_manager.dart';
@@ -5,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../ressource/route_manager.dart';
 import '../ressource/string_manager.dart';
 
 class OnBoardingView extends StatefulWidget {
@@ -34,7 +36,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        elevation: AppSize.s1_5,
+        elevation: AppSize.s0,
         backgroundColor: ColorManager.white,
         systemOverlayStyle: SystemUiOverlayStyle(
           statusBarColor: ColorManager.white,
@@ -64,10 +66,11 @@ class _OnBoardingViewState extends State<OnBoardingView> {
               alignment: Alignment.centerRight,
               child: TextButton(
                   onPressed: () {
-
+                    Navigator.pushReplacementNamed(context, Routes.loginRoute);
                   },
-                  child: const Text(
+                  child: Text(
                     AppString.skip,
+                    style: Theme.of(context).textTheme.subtitle2,
                     textAlign: TextAlign.end,
                   )
               ),
@@ -79,62 +82,65 @@ class _OnBoardingViewState extends State<OnBoardingView> {
     );
   }
 
-  Widget _getBottomSheet() => Row(
-    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    children: [
-      // Left arrow --------------------------------------------------------------
-      Padding(
-        padding: const EdgeInsets.all(AppPadding.p14),
-        child: GestureDetector(
-          child: SizedBox(
-            width: AppSize.s20,
-            height: AppSize.s20,
-            child: SvgPicture.asset(ImageAsset.leftArrowIc),
+  Widget _getBottomSheet() => Container(
+    color: ColorManager.primary,
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        // Left arrow --------------------------------------------------------------
+        Padding(
+          padding: const EdgeInsets.all(AppPadding.p14),
+          child: GestureDetector(
+            child: SizedBox(
+              width: AppSize.s20,
+              height: AppSize.s20,
+              child: SvgPicture.asset(ImageAsset.leftArrowIc),
+            ),
+            onTap: () {
+              // Go to previous slide --------------------------------------------
+              _pageController.animateToPage(
+                  _getPreviousIndex(),
+                  duration: const Duration(
+                    milliseconds: DurationConstant.d300,
+                  ),
+                  curve: Curves.bounceInOut,
+              );
+            },
           ),
-          onTap: () {
-            // Go to previous slide --------------------------------------------
-            _pageController.animateToPage(
-                _getPreviousIndex(),
+        ),
+        // Circle indicator ------------------------------------------------------
+        Row(
+          children: [
+            for(int i = 0; i < _list.length; i++)
+              Padding(
+                padding: const EdgeInsets.all(AppPadding.p8),
+                child: _getProperCircle(i),
+              ),
+          ],
+        ),
+        // Right arrow -----------------------------------------------------------
+        Padding(
+          padding: const EdgeInsets.all(AppPadding.p14),
+          child: GestureDetector(
+            child: SizedBox(
+              width: AppSize.s20,
+              height: AppSize.s20,
+              child: SvgPicture.asset(ImageAsset.rightArrowIc),
+            ),
+            onTap: () {
+              // Go to next slide ------------------------------------------------
+              _pageController.animateToPage(
+                _getNextIndex(),
                 duration: const Duration(
                   milliseconds: DurationConstant.d300,
                 ),
-                curve: Curves.bounceIn,
-            );
-          },
-        ),
-      ),
-      // Circle indicator ------------------------------------------------------
-      Row(
-        children: [
-          for(int i = 0; i < _list.length; i++)
-            Padding(
-              padding: const EdgeInsets.all(AppPadding.p8),
-              child: _getProperCircle(i),
-            ),
-        ],
-      ),
-      // Right arrow -----------------------------------------------------------
-      Padding(
-        padding: const EdgeInsets.all(AppPadding.p14),
-        child: GestureDetector(
-          child: SizedBox(
-            width: AppSize.s20,
-            height: AppSize.s20,
-            child: SvgPicture.asset(ImageAsset.rightArrowIc),
+                curve: Curves.bounceInOut,
+              );
+            },
           ),
-          onTap: () {
-            // Go to next slide ------------------------------------------------
-            _pageController.animateToPage(
-              _getNextIndex(),
-              duration: const Duration(
-                milliseconds: DurationConstant.d300,
-              ),
-              curve: Curves.bounceIn,
-            );
-          },
         ),
-      ),
-    ],
+      ],
+    ),
   );
 
   Widget _getProperCircle(int index) {
