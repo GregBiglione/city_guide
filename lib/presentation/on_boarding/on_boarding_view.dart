@@ -92,11 +92,18 @@ class _OnBoardingViewState extends State<OnBoardingView> {
             child: SvgPicture.asset(ImageAsset.leftArrowIc),
           ),
           onTap: () {
-
+            // Go to previous slide --------------------------------------------
+            _pageController.animateToPage(
+                _getPreviousIndex(),
+                duration: const Duration(
+                  milliseconds: DurationConstant.d300,
+                ),
+                curve: Curves.bounceIn,
+            );
           },
         ),
       ),
-      // Circle indicator --------------------------------------------------------
+      // Circle indicator ------------------------------------------------------
       Row(
         children: [
           for(int i = 0; i < _list.length; i++)
@@ -106,7 +113,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
             ),
         ],
       ),
-      // Right arrow -------------------------------------------------------------
+      // Right arrow -----------------------------------------------------------
       Padding(
         padding: const EdgeInsets.all(AppPadding.p14),
         child: GestureDetector(
@@ -116,7 +123,14 @@ class _OnBoardingViewState extends State<OnBoardingView> {
             child: SvgPicture.asset(ImageAsset.rightArrowIc),
           ),
           onTap: () {
-
+            // Go to next slide ------------------------------------------------
+            _pageController.animateToPage(
+              _getNextIndex(),
+              duration: const Duration(
+                milliseconds: DurationConstant.d300,
+              ),
+              curve: Curves.bounceIn,
+            );
           },
         ),
       ),
@@ -130,6 +144,32 @@ class _OnBoardingViewState extends State<OnBoardingView> {
     else {
       return SvgPicture.asset(ImageAsset.solidCircleIc);
     }
+  }
+
+  //----------------------------------------------------------------------------
+  // Get previous index
+  //----------------------------------------------------------------------------
+
+  int _getPreviousIndex() {
+    int previousIndex = _currentIndex--;
+
+    if(previousIndex == -1) {
+      _currentIndex = _list.length - 1;
+    }
+    return _currentIndex;
+  }
+
+  //----------------------------------------------------------------------------
+  // Get next index
+  //----------------------------------------------------------------------------
+
+  int _getNextIndex() {
+    int nextIndex = _currentIndex++;
+
+    if(nextIndex >= _list.length) {
+      _currentIndex = 0;
+    }
+    return _currentIndex;
   }
 }
 
