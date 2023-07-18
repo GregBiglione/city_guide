@@ -1,7 +1,7 @@
-class Slider {
+class SliderObject {
   String title;
   String subTitle;
   String image;
 
-  Slider(this.title, this.subTitle, this.image);
+  SliderObject(this.title, this.subTitle, this.image);
 }
