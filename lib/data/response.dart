@@ -17,3 +17,13 @@ class CustomerResponse {
   @JsonKey(name: "numberOfNotification")
   int? numberOfNotification;
 }
+
+@JsonSerializable()
+class ContactResponse {
+  @JsonKey(name: "phone")
+  String? phone;
+  @JsonKey(name: "link")
+  String? link;
+  @JsonKey(name: "email")
+  String? email;
+}
