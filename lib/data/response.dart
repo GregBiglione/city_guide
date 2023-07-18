@@ -27,3 +27,11 @@ class ContactResponse {
   @JsonKey(name: "email")
   String? email;
 }
+
+@JsonSerializable()
+class AuthenticationResponse extends BaseResponse {
+  @JsonKey(name: "customer")
+  CustomerResponse? customer;
+  @JsonKey(name: "contacts")
+  ContactResponse? contact;
+}
