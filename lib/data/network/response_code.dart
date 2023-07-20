@@ -9,7 +9,7 @@ class ResponseCode {
   static const int INTERNAL_SERVER_ERROR = 500;
 
   // Local status code ---------------------------------------------------------
-  static const int UNKNOWN = -1;
+  static const int DEFAULT = -1;
   static const int CONNECT_TIMEOUT = -2;
   static const int CANCEL = -3;
   static const int RECEIVE_TIMEOUT = -4;

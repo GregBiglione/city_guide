@@ -9,7 +9,7 @@ class ResponseMessage {
   static const String INTERNAL_SERVER_ERROR = "Something went wrong, try again later";
 
   // Local status code ---------------------------------------------------------
-  static const String UNKNOWN = "Something went wrong, try again later";
+  static const String DEFAULT = "Something went wrong, try again later";
   static const String CONNECT_TIMEOUT = "Timeout error, try again later";
   static const String CANCEL = "Request was cancelled, try again later";
   static const String RECEIVE_TIMEOUT = "Timeout error, try again later";
