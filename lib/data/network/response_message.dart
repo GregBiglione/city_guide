@@ -6,7 +6,7 @@ class ResponseMessage {
   static const String FORBIDDEN = "Forbidden request, try again later";
   static const String UNAUTHORIZED = "User in unauthorized, try again later";
   static const String NOT_FOUND = "Url not found, try again later";
-  static const String StringERNAL_SERVER_ERROR = "Something went wrong, try again later";
+  static const String INTERNAL_SERVER_ERROR = "Something went wrong, try again later";
 
   // Local status code ---------------------------------------------------------
   static const String UNKNOWN = "Something went wrong, try again later";
