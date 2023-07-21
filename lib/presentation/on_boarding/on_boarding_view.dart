@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../domain/slider.dart';
+import '../../domain/model/slider.dart';
 import '../ressource/route_manager.dart';
 import '../ressource/string_manager.dart';
 

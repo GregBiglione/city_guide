@@ -1,8 +1,8 @@
 import 'package:city_guide/app/extension.dart';
 
-import '../../domain/authentication.dart';
-import '../../domain/contacts.dart';
-import '../../domain/customer.dart';
+import '../../domain/model/authentication.dart';
+import '../../domain/model/contacts.dart';
+import '../../domain/model/customer.dart';
 import '../response/response.dart';
 
 const EMPTY = "";

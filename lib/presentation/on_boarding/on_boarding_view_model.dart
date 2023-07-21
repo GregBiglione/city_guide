@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:city_guide/domain/slider.dart';
+import 'package:city_guide/domain/model/slider.dart';
 import 'package:city_guide/presentation/base/base_view_model.dart';
 import 'package:city_guide/presentation/on_boarding/on_boarding_view.dart';
 

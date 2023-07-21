@@ -9,11 +9,11 @@ import 'package:city_guide/data/network/response_message.dart';
 
 import 'package:city_guide/data/request/login_request.dart';
 
-import 'package:city_guide/domain/authentication.dart';
+import 'package:city_guide/domain/model/authentication.dart';
 
 import 'package:dartz/dartz.dart';
 
-import '../../domain/repository.dart';
+import '../../domain/repository/repository.dart';
 import '../data_source/remote_data_source.dart';
 import '../network/network_info.dart';
 
