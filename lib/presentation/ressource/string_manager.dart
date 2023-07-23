@@ -10,4 +10,11 @@ class AppString {
   static const String onBoardingSubTitle3 = "Tut app is an awesome flutter application using clear architecture #3";
   static const String onBoardingSubTitle4 = "Tut app is an awesome flutter application using clear architecture #4";
   static const String skip = "Skip";
+  static const String email = "Email";
+  static const String emailError = "Email is wrong";
+  static const String password = "Password";
+  static const String passwordError = "Password is wrong";
+  static const String login = "Login";
+  static const String forgetPassword = "Forget password";
+  static const String registerText = "Not a member ? Sign up";
 }

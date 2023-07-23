@@ -9,6 +9,7 @@ class LoginViewModel extends BaseViewModel with LoginViewModelInput,
     LoginViewModelOutput {
   final StreamController _emailStreamController = StreamController<String>.broadcast();
   final StreamController _passwordStreamController = StreamController<String>.broadcast();
+  final StreamController _isAllInputValidStreamController = StreamController<void>.broadcast();
   Login loginObject = const Login("", "");
   final LoginUseCase? _loginUseCase;
 
@@ -19,6 +20,7 @@ class LoginViewModel extends BaseViewModel with LoginViewModelInput,
   void dispose() {
     _emailStreamController.close();
     _passwordStreamController.close();
+    _isAllInputValidStreamController.close();
   }
 
   @override
@@ -31,6 +33,9 @@ class LoginViewModel extends BaseViewModel with LoginViewModelInput,
 
   @override
   Sink get inputUserPassword => _passwordStreamController.sink;
+
+  @override
+  Sink get inputIsAllInputValid => _isAllInputValidStreamController.sink;
 
   @override
   login() async {
@@ -51,12 +56,14 @@ class LoginViewModel extends BaseViewModel with LoginViewModelInput,
   setUserEmail(String email) {
     inputUserEmail.add(email);
     loginObject = loginObject.copyWith(email: email);
+    _validate();
   }
 
   @override
   setUserPassword(String password) {
     inputUserPassword.add(password);
     loginObject = loginObject.copyWith(password: password);
+    _validate();
   }
 
   // Output --------------------------------------------------------------------
@@ -68,6 +75,10 @@ class LoginViewModel extends BaseViewModel with LoginViewModelInput,
   Stream<bool> get outputIsUserPasswordValid => _passwordStreamController
       .stream.map((password) => _isPasswordValid(password));
 
+  @override
+  Stream<bool> get outputIsAllInputValid => _isAllInputValidStreamController
+      .stream.map((_) => _isAllInputValid());
+
   // Private function ----------------------------------------------------------
   bool _isEmailValid(String email) {
     return email.isNotEmpty;
@@ -75,6 +86,14 @@ class LoginViewModel extends BaseViewModel with LoginViewModelInput,
   
   bool _isPasswordValid(String password) {
     return password.isNotEmpty;
+  }
+
+  bool _isAllInputValid() {
+    return _isEmailValid(loginObject.email) && _isPasswordValid(loginObject.password);
+  }
+
+  _validate() {
+    inputIsAllInputValid.add(null);
   }
 }
 
@@ -88,6 +107,7 @@ abstract class LoginViewModelInput {
   // 2 sinks for stream --------------------------------------------------------
   Sink get inputUserEmail;
   Sink get inputUserPassword;
+  Sink get inputIsAllInputValid;
 }
 
 // Output means data/result that will be sent from view to view ----------------
@@ -95,4 +115,5 @@ abstract class LoginViewModelOutput {
   // 2 stream for validation ---------------------------------------------------
   Stream<bool> get outputIsUserEmailValid;
   Stream<bool> get outputIsUserPasswordValid;
+  Stream<bool> get outputIsAllInputValid;
 }
