@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:city_guide/domain/usecase/login_usecase.dart';
+import 'package:city_guide/domain/usecase/login_usecase_input.dart';
 import 'package:city_guide/presentation/base/base_view_model.dart';
 import 'package:city_guide/presentation/common/login.dart';
 
@@ -7,7 +9,10 @@ class LoginViewModel extends BaseViewModel with LoginViewModelInput,
     LoginViewModelOutput {
   final StreamController _emailStreamController = StreamController<String>.broadcast();
   final StreamController _passwordStreamController = StreamController<String>.broadcast();
-  Login loginObject = Login("", "");
+  Login loginObject = const Login("", "");
+  final LoginUseCase _loginUseCase;
+
+  LoginViewModel(this._loginUseCase);
 
   // Input ---------------------------------------------------------------------
   @override
@@ -28,9 +33,18 @@ class LoginViewModel extends BaseViewModel with LoginViewModelInput,
   Sink get inputUserPassword => _passwordStreamController.sink;
 
   @override
-  login() {
-    // TODO: implement login
-    throw UnimplementedError();
+  login() async {
+    (await _loginUseCase.execute(
+        LoginUseCaseInput(
+            loginObject.email,
+            loginObject.password),
+    )).fold((failure) => {
+      // Failure ---------------------------------------------------------------
+      print(failure.message)
+    }, (data) => {
+      // Authentication --------------------------------------------------------
+      print(data.customer?.name)
+    });
   }
 
   @override
@@ -51,7 +65,6 @@ class LoginViewModel extends BaseViewModel with LoginViewModelInput,
       .stream.map((email) => _isEmailValid(email));
 
   @override
-  // TODO: implement outputIsUserPasswordValid
   Stream<bool> get outputIsUserPasswordValid => _passwordStreamController
       .stream.map((password) => _isPasswordValid(password));
 
