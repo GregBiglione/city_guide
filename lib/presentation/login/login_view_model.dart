@@ -1,11 +1,17 @@
+import 'dart:async';
+
 import 'package:city_guide/presentation/base/base_view_model.dart';
 
 class LoginViewModel extends BaseViewModel with LoginViewModelInput,
     LoginViewModelOutput {
+  StreamController _emailStreamController = StreamController<String>.broadcast();
+  StreamController _passwordStreamController = StreamController<String>.broadcast();
+
   // Input ---------------------------------------------------------------------
   @override
   void dispose() {
-    // TODO: implement dispose
+    _emailStreamController.close();
+    _passwordStreamController.close();
   }
 
   @override
@@ -14,12 +20,10 @@ class LoginViewModel extends BaseViewModel with LoginViewModelInput,
   }
 
   @override
-  // TODO: implement inputUserEmail
-  Sink get inputUserEmail => throw UnimplementedError();
+  Sink get inputUserEmail => _emailStreamController.sink;
 
   @override
-  // TODO: implement inputUserPassword
-  Sink get inputUserPassword => throw UnimplementedError();
+  Sink get inputUserPassword => _passwordStreamController.sink;
 
   @override
   login() {
@@ -41,12 +45,22 @@ class LoginViewModel extends BaseViewModel with LoginViewModelInput,
 
   // Output --------------------------------------------------------------------
   @override
-  // TODO: implement outputIsUserEmailValid
-  Stream<bool> get outputIsUserEmailValid => throw UnimplementedError();
+  Stream<bool> get outputIsUserEmailValid => _emailStreamController
+      .stream.map((email) => _isEmailValid(email));
 
   @override
   // TODO: implement outputIsUserPasswordValid
-  Stream<bool> get outputIsUserPasswordValid => throw UnimplementedError();
+  Stream<bool> get outputIsUserPasswordValid => _passwordStreamController
+      .stream.map((password) => _isPasswordValid(password));
+
+  // Private function ----------------------------------------------------------
+  bool _isEmailValid(String email) {
+    return email.isNotEmpty;
+  }
+  
+  bool _isPasswordValid(String password) {
+    return password.isNotEmpty;
+  }
 }
 
 // Input means order that view model will receive from view --------------------
