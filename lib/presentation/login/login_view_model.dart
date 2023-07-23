@@ -1,11 +1,13 @@
 import 'dart:async';
 
 import 'package:city_guide/presentation/base/base_view_model.dart';
+import 'package:city_guide/presentation/common/login.dart';
 
 class LoginViewModel extends BaseViewModel with LoginViewModelInput,
     LoginViewModelOutput {
-  StreamController _emailStreamController = StreamController<String>.broadcast();
-  StreamController _passwordStreamController = StreamController<String>.broadcast();
+  final StreamController _emailStreamController = StreamController<String>.broadcast();
+  final StreamController _passwordStreamController = StreamController<String>.broadcast();
+  Login loginObject = Login("", "");
 
   // Input ---------------------------------------------------------------------
   @override
@@ -33,14 +35,14 @@ class LoginViewModel extends BaseViewModel with LoginViewModelInput,
 
   @override
   setUserEmail(String email) {
-    // TODO: implement setUserEmail
-    throw UnimplementedError();
+    inputUserEmail.add(email);
+    loginObject = loginObject.copyWith(email: email);
   }
 
   @override
   setUserPassword(String password) {
-    // TODO: implement setUserPassword
-    throw UnimplementedError();
+    inputUserPassword.add(password);
+    loginObject = loginObject.copyWith(password: password);
   }
 
   // Output --------------------------------------------------------------------
