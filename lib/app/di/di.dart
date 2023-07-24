@@ -18,7 +18,6 @@ final instance = GetIt.instance;
 
 Future<void> initAppModule() async {
   final sharedPrefs = await SharedPreferences.getInstance();
-  final dio = await instance<DioFactory>().getDio();
 
   // SharedPreferences instance ------------------------------------------------
   instance.registerLazySingleton<SharedPreferences>(() => sharedPrefs);
@@ -36,6 +35,7 @@ Future<void> initAppModule() async {
       DioFactory(instance()));
 
   // App service client instance -----------------------------------------------
+  final dio = await instance<DioFactory>().getDio();
   instance.registerLazySingleton<AppServiceClient>(() =>
       AppServiceClient(dio));
 
