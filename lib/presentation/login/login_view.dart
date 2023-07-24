@@ -4,6 +4,7 @@ import 'package:city_guide/presentation/ressource/value_manager.dart';
 import 'package:flutter/material.dart';
 
 import '../ressource/asset_manager.dart';
+import '../ressource/route_manager.dart';
 import '../ressource/string_manager.dart';
 
 class LoginView extends StatefulWidget {
@@ -64,6 +65,7 @@ class _LoginViewState extends State<LoginView> {
               _passwordWidget(),
               const SizedBox(height: AppSize.s28,),
               _loginButtonWidget(),
+              _forgetPasswordAndRegister(),
             ],
           ),
         ),
@@ -152,6 +154,43 @@ class _LoginViewState extends State<LoginView> {
           ),
         );
       },
+    ),
+  );
+
+  //----------------------------------------------------------------------------
+  // Forget password & register
+  //----------------------------------------------------------------------------
+
+  Widget _forgetPasswordAndRegister() => Padding(
+    padding: const EdgeInsets.only(
+      top: AppPadding.p8,
+      right: AppPadding.p28,
+      left: AppPadding.p28,
+    ),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        TextButton(
+          onPressed: () {
+            Navigator.pushReplacementNamed(
+                context, Routes.forgotPasswordRoute);
+          },
+          child: Text(
+            AppString.forgetPassword,
+            style: Theme.of(context).textTheme.titleSmall,
+          ),
+        ),
+        TextButton(
+          onPressed: () {
+            Navigator.pushReplacementNamed(
+                context, Routes.registerRoute);
+          },
+          child: Text(
+            AppString.registerText,
+            style: Theme.of(context).textTheme.titleSmall,
+          ),
+        ),
+      ],
     ),
   );
 }

@@ -87,9 +87,10 @@ class _OnBoardingViewState extends State<OnBoardingView> {
                           },
                           child: Text(
                             AppString.skip,
-                            style: Theme.of(context).textTheme.subtitle2,
+                            style: Theme.of(context).textTheme.titleSmall,
                             textAlign: TextAlign.end,
-                          )),
+                          ),
+                      ),
                     ),
                     _getBottomSheet(sliderViewObject),
                   ],
@@ -188,7 +189,7 @@ class OnBoardingPage extends StatelessWidget {
           child: Text(
             _sliderObject.title,
             textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.headline1,
+            style: Theme.of(context).textTheme.displayLarge,
           ),
         ),
         Padding(
@@ -196,7 +197,7 @@ class OnBoardingPage extends StatelessWidget {
           child: Text(
             _sliderObject.subTitle,
             textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.subtitle1,
+            style: Theme.of(context).textTheme.titleMedium,
           ),
         ),
         const SizedBox(
