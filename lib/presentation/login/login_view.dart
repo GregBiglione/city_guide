@@ -1,3 +1,4 @@
+import 'package:city_guide/app/di/di.dart';
 import 'package:city_guide/presentation/login/login_view_model.dart';
 import 'package:city_guide/presentation/ressource/color_manager.dart';
 import 'package:city_guide/presentation/ressource/value_manager.dart';
@@ -15,8 +16,7 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginViewState extends State<LoginView> {
-  // TODO pass login use case
-  final LoginViewModel _viewModel = LoginViewModel(null);
+  final LoginViewModel _viewModel = instance<LoginViewModel>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();

@@ -11,7 +11,7 @@ class LoginViewModel extends BaseViewModel with LoginViewModelInput,
   final StreamController _passwordStreamController = StreamController<String>.broadcast();
   final StreamController _isAllInputValidStreamController = StreamController<void>.broadcast();
   Login loginObject = const Login("", "");
-  final LoginUseCase? _loginUseCase;
+  final LoginUseCase _loginUseCase;
 
   LoginViewModel(this._loginUseCase);
 
@@ -39,11 +39,11 @@ class LoginViewModel extends BaseViewModel with LoginViewModelInput,
 
   @override
   login() async {
-    (await _loginUseCase?.execute(
+    (await _loginUseCase.execute(
         LoginUseCaseInput(
             loginObject.email,
             loginObject.password),
-    ))?.fold((failure) => {
+    )).fold((failure) => {
       // Failure ---------------------------------------------------------------
       print(failure.message)
     }, (data) => {

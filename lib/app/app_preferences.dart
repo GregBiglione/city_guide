@@ -4,7 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 const PREFERENCES_KEY_LANGUAGE = "PREFERENCES_KEY_LANGUAGE";
 
 class AppPreferences {
-  SharedPreferences _sharedPreferences;
+  final SharedPreferences _sharedPreferences;
 
   AppPreferences(this._sharedPreferences);
 

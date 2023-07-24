@@ -1,3 +1,4 @@
+import 'package:city_guide/app/di/di.dart';
 import 'package:city_guide/presentation/forgot_password/forgot_password_view.dart';
 import 'package:city_guide/presentation/login/login_view.dart';
 import 'package:city_guide/presentation/main/main_view.dart';
@@ -26,6 +27,7 @@ class RouteGenerator {
       case Routes.onBoardingRoute:
         return MaterialPageRoute(builder: (_) => const OnBoardingView());
       case Routes.loginRoute:
+        initLoginModule();
         return MaterialPageRoute(builder: (_) => const LoginView());
       case Routes.registerRoute:
         return MaterialPageRoute(builder: (_) => const RegisterView());
