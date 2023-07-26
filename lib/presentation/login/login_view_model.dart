@@ -4,6 +4,7 @@ import 'package:city_guide/domain/usecase/login_usecase.dart';
 import 'package:city_guide/domain/usecase/login_usecase_input.dart';
 import 'package:city_guide/presentation/base/base_view_model.dart';
 import 'package:city_guide/presentation/common/login.dart';
+import 'package:city_guide/presentation/common/state_renderer/state_renderer_implementer.dart';
 
 class LoginViewModel extends BaseViewModel with LoginViewModelInput,
     LoginViewModelOutput {
@@ -25,7 +26,8 @@ class LoginViewModel extends BaseViewModel with LoginViewModelInput,
 
   @override
   void start() {
-    // TODO: implement start
+    // View tells state to show content of the screen
+    inputState.add(ContentState());
   }
 
   @override
