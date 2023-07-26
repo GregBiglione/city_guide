@@ -82,6 +82,7 @@ extension FlowStateExtension on FlowState {
         }
       }
       case ErrorState: {
+        dismissDialog(context);
         if(getStateRenderType() == StateRenderType.POPUP_ERROR_STATE) {
           // Showing popup dialog ----------------------------------------------
           showPopUp(context, getStateRenderType(), getMessage());
@@ -97,6 +98,7 @@ extension FlowStateExtension on FlowState {
         }
       }
       case ContentState: {
+        dismissDialog(context);
         return contentScreenWidget;
       }
       case EmptyState: {
@@ -112,6 +114,10 @@ extension FlowStateExtension on FlowState {
     }
   }
 
+  //----------------------------------------------------------------------------
+  // Display dialog
+  //----------------------------------------------------------------------------
+
   showPopUp(BuildContext context, StateRenderType stateRenderType,
       String message) {
     WidgetsBinding.instance.addPostFrameCallback((_) =>
@@ -124,5 +130,25 @@ extension FlowStateExtension on FlowState {
           ),
         ),
     );
+  }
+
+  //----------------------------------------------------------------------------
+  // Handling showing many popup dialogs
+  //----------------------------------------------------------------------------
+
+  _isThereCurrentDialogShowing(BuildContext context) =>
+      ModalRoute.of(context)?.isCurrent != true;
+
+  //----------------------------------------------------------------------------
+  // Dismiss dialog
+  //----------------------------------------------------------------------------
+
+  dismissDialog(BuildContext context) {
+    if(_isThereCurrentDialogShowing(context)) {
+      Navigator.of(
+        context,
+        rootNavigator: true,
+      ).pop(true);
+    }
   }
 }
