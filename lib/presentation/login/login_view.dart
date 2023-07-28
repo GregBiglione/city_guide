@@ -1,4 +1,5 @@
 import 'package:city_guide/app/di/di.dart';
+import 'package:city_guide/presentation/common/state_renderer/state_renderer_implementer.dart';
 import 'package:city_guide/presentation/login/login_view_model.dart';
 import 'package:city_guide/presentation/ressource/color_manager.dart';
 import 'package:city_guide/presentation/ressource/value_manager.dart';
@@ -43,12 +44,24 @@ class _LoginViewState extends State<LoginView> {
 
   @override
   Widget build(BuildContext context) {
-    return _getContentWidget();
+    return Scaffold(
+      backgroundColor: ColorManager.white,
+      body: StreamBuilder<FlowState>(
+        stream: _viewModel.outputState,
+        builder: (context, snapshot) {
+          return snapshot.data?.getWidgetScreen(
+            context,
+            _getContentWidget(),
+            () {
+              _viewModel.login();
+            }
+          ) ?? _getContentWidget();
+        },
+      ),
+    );
   }
 
-  Widget _getContentWidget() => Scaffold(
-    backgroundColor: ColorManager.white,
-    body: Container(
+  Widget _getContentWidget() => Container(
       padding: const EdgeInsets.only(
         top: AppPadding.p100,
       ),
@@ -60,7 +73,7 @@ class _LoginViewState extends State<LoginView> {
             children: [
               const Image(image: AssetImage(ImageAsset.splashLogo)),
               const SizedBox(height: AppSize.s28,),
-              _emailWidget(),
+              _usernameWidget(),
               const SizedBox(height: AppSize.s28,),
               _passwordWidget(),
               const SizedBox(height: AppSize.s28,),
@@ -70,14 +83,13 @@ class _LoginViewState extends State<LoginView> {
           ),
         ),
       ),
-    ),
   );
 
   //----------------------------------------------------------------------------
   // Email widget
   //----------------------------------------------------------------------------
 
-  Widget _emailWidget() => Padding(
+  Widget _usernameWidget() => Padding(
     padding: const EdgeInsets.only(
       left: AppPadding.p28,
       right: AppPadding.p28,
@@ -89,11 +101,11 @@ class _LoginViewState extends State<LoginView> {
           controller: _emailController,
           keyboardType: TextInputType.emailAddress,
           decoration: InputDecoration(
-            hintText: AppString.email,
-            labelText: AppString.email,
+            hintText: AppString.username,
+            labelText: AppString.username,
             errorText: (snapshot.data ?? true)
                 ? null
-                : AppString.emailError,
+                : AppString.username,
           ),
         );
       },

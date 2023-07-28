@@ -118,8 +118,7 @@ class StateRender extends StatelessWidget {
   Widget _getRetryButton(String buttonTitle, BuildContext context) => Padding(
     padding: const EdgeInsets.all(AppPadding.p18),
     child: SizedBox(
-      width: double.infinity,
-      height: AppSize.s180,
+      width: AppSize.s180,
       child: ElevatedButton(
         onPressed: (){
           if(stateRenderType == StateRenderType.FULL_SCRREN_ERROR_STATE) {

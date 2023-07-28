@@ -6,6 +6,8 @@ import 'package:city_guide/presentation/base/base_view_model.dart';
 import 'package:city_guide/presentation/common/login.dart';
 import 'package:city_guide/presentation/common/state_renderer/state_renderer_implementer.dart';
 
+import '../common/state_renderer/state_renderer.dart';
+
 class LoginViewModel extends BaseViewModel with LoginViewModelInput,
     LoginViewModelOutput {
   final StreamController _emailStreamController = StreamController<String>.broadcast();
@@ -41,16 +43,20 @@ class LoginViewModel extends BaseViewModel with LoginViewModelInput,
 
   @override
   login() async {
+    inputState.add(LoadingState(stateRenderType: StateRenderType.POPUP_LOADING_STATE));
     (await _loginUseCase.execute(
         LoginUseCaseInput(
             loginObject.email,
             loginObject.password),
     )).fold((failure) => {
       // Failure ---------------------------------------------------------------
-      print(failure.message)
+      inputState.add(ErrorState(StateRenderType.POPUP_ERROR_STATE, failure.message)),
     }, (data) => {
       // Authentication --------------------------------------------------------
-      print(data.customer?.name)
+      inputState.add(ContentState()),
+
+      // Navigate to main screen after login -----------------------------------
+
     });
   }
 
