@@ -4,6 +4,7 @@ import 'package:city_guide/presentation/login/login_view_model.dart';
 import 'package:city_guide/presentation/ressource/color_manager.dart';
 import 'package:city_guide/presentation/ressource/value_manager.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 
 import '../ressource/asset_manager.dart';
 import '../ressource/route_manager.dart';
@@ -18,16 +19,23 @@ class LoginView extends StatefulWidget {
 
 class _LoginViewState extends State<LoginView> {
   final LoginViewModel _viewModel = instance<LoginViewModel>();
-  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
   _bind() {
     _viewModel.start();
-    _emailController.addListener(() =>
-        _viewModel.setUserEmail(_emailController.text));
+    _usernameController.addListener(() =>
+        _viewModel.setUserName(_usernameController.text));
     _passwordController.addListener(() =>
         _viewModel.setUserPassword(_passwordController.text));
+    _viewModel.isUserLoggedInSuccessfullyStreamController.stream
+        .listen((isSuccessLoggedIn) {
+          // Navigate to main screen -------------------------------------------
+          SchedulerBinding.instance.addPostFrameCallback((_) {
+            Navigator.of(context).pushReplacementNamed(Routes.mainRoute);
+          });
+    });
   }
 
   @override
@@ -95,10 +103,10 @@ class _LoginViewState extends State<LoginView> {
       right: AppPadding.p28,
     ),
     child: StreamBuilder<bool>(
-      stream: _viewModel.outputIsUserEmailValid,
+      stream: _viewModel.outputIsUsernameValid,
       builder: (context, snapshot) {
         return TextFormField(
-          controller: _emailController,
+          controller: _usernameController,
           keyboardType: TextInputType.emailAddress,
           decoration: InputDecoration(
             hintText: AppString.username,

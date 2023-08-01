@@ -14,8 +14,8 @@ class RemoteDataSourceImplementer implements RemoteDataSource {
     return _appServiceClient.login(
       loginRequest.username,
       loginRequest.password,
-      loginRequest.imei,
-      loginRequest.deviceType,
+      "",
+      "",
     );
   }
 }
