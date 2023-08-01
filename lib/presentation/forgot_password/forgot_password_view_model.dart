@@ -11,3 +11,13 @@ class ForgotPasswordViewModel extends BaseViewModel {
     // TODO: implement start
   }
 }
+
+// Input means order that view model will receive from view --------------------
+abstract class ForgotPasswordViewModelInput {
+  // 2 functions for actions ---------------------------------------------------
+  setEmail(String email);
+  newPassword();
+
+  // 1 sink for stream ---------------------------------------------------------
+  Sink get inputEmail;
+}
