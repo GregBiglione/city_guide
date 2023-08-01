@@ -21,3 +21,9 @@ abstract class ForgotPasswordViewModelInput {
   // 1 sink for stream ---------------------------------------------------------
   Sink get inputEmail;
 }
+
+// Output means data/result that will be sent from view to view ----------------
+abstract class ForgotPasswordViewModelOutput {
+  // 1 stream for validation ---------------------------------------------------
+  Stream<bool> get outputIsEmailValid;
+}
