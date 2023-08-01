@@ -116,7 +116,7 @@ class _LoginViewState extends State<LoginView> {
             labelText: AppString.username,
             errorText: (snapshot.data ?? true)
                 ? null
-                : AppString.username,
+                : AppString.usernameError,
           ),
         );
       },

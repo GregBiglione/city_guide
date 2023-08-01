@@ -10,6 +10,7 @@ import '../../domain/usecase/forgot_password_usecase.dart';
 class ForgotPasswordViewModel extends BaseViewModel with
     ForgotPasswordViewModelInput, ForgotPasswordViewModelOutput{
   StreamController _emailStreamController = StreamController<String>.broadcast();
+  StreamController _isAllInputValidStreamController = StreamController<void>.broadcast();
   NewPassword newPasswordObject = const NewPassword("");
   ForgotPasswordUseCase? _forgotPasswordUseCase;
 
@@ -19,6 +20,7 @@ class ForgotPasswordViewModel extends BaseViewModel with
   @override
   void dispose() {
     _emailStreamController.close();
+    _isAllInputValidStreamController.close();
   }
 
   @override
@@ -28,6 +30,10 @@ class ForgotPasswordViewModel extends BaseViewModel with
 
   @override
   Sink get inputEmail => _emailStreamController.sink;
+
+
+  @override
+  Sink get inputIsAllInputValid => _isAllInputValidStreamController.sink;
 
   @override
   newPassword() async {
@@ -52,6 +58,7 @@ class ForgotPasswordViewModel extends BaseViewModel with
   setEmail(String email) {
     inputEmail.add(email);
     newPasswordObject = newPasswordObject.copyWith(email: email);
+    _validate();
   }
 
   // Output --------------------------------------------------------------------
@@ -59,9 +66,21 @@ class ForgotPasswordViewModel extends BaseViewModel with
   Stream<bool> get outputIsEmailValid => _emailStreamController.stream
       .map((email) => _isEmailValid(email));
 
+  @override
+  Stream<bool> get outputIsAllInputValid => _isAllInputValidStreamController.stream
+      .map((_) => _isAllInputValid());
+
   // Private function ----------------------------------------------------------
   bool _isEmailValid(String email) {
     return email.isNotEmpty && EmailValidator.validate(email);
+  }
+
+  bool _isAllInputValid() {
+    return _isEmailValid(newPasswordObject.email);
+  }
+
+  _validate() {
+    inputIsAllInputValid.add(null);
   }
 }
 
@@ -71,12 +90,14 @@ abstract class ForgotPasswordViewModelInput {
   setEmail(String email);
   newPassword();
 
-  // 1 sink for stream ---------------------------------------------------------
+  // 2 sinks for stream --------------------------------------------------------
   Sink get inputEmail;
+  Sink get inputIsAllInputValid;
 }
 
 // Output means data/result that will be sent from view to view ----------------
 abstract class ForgotPasswordViewModelOutput {
-  // 1 stream for validation ---------------------------------------------------
+  // 2 streams for validation --------------------------------------------------
   Stream<bool> get outputIsEmailValid;
+  Stream<bool> get outputIsAllInputValid;
 }
