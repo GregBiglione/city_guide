@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:city_guide/presentation/ressource/color_manager.dart';
 import 'package:flutter/material.dart';
 
+import '../../app/app_preferences.dart';
+import '../../app/di/di.dart';
 import '../ressource/asset_manager.dart';
 import '../ressource/route_manager.dart';
 
@@ -15,6 +17,7 @@ class SplashView extends StatefulWidget {
 
 class _SplashViewState extends State<SplashView> {
   Timer? _timer;
+  final AppPreferences _appPreferences = instance<AppPreferences>();
 
   //----------------------------------------------------------------------------
   // Start timer
@@ -28,11 +31,32 @@ class _SplashViewState extends State<SplashView> {
     );
   }
 
-  _goNext(){
-    Navigator.pushReplacementNamed(
-        context,
-        Routes.onBoardingRoute,
-    );
+  _goNext() async {
+    _appPreferences.isUserLoggedIn().then((isUserLoggedIn) => {
+      // Navigate to main screen -----------------------------------------------
+      if(isUserLoggedIn) {
+        Navigator.pushReplacementNamed(
+          context,
+          Routes.mainRoute,
+        )
+      }
+      else {
+        _appPreferences.isOnBoardingViewed().then((isOnBoardingViewed) => {
+          if(isOnBoardingViewed) {
+            Navigator.pushReplacementNamed(
+              context,
+              Routes.loginRoute,
+            )
+          }
+          else {
+            Navigator.pushReplacementNamed(
+              context,
+              Routes.onBoardingRoute,
+            )
+          }
+        })
+      }
+    });
   }
 
   @override
