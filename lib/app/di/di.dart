@@ -6,6 +6,7 @@ import 'package:city_guide/data/network/dio_factory.dart';
 import 'package:city_guide/data/repository/repository_implementer.dart';
 import 'package:city_guide/domain/repository/repository.dart';
 import 'package:city_guide/domain/usecase/login_usecase.dart';
+import 'package:city_guide/presentation/forgot_password/forgot_password_view_model.dart';
 import 'package:city_guide/presentation/login/login_view_model.dart';
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
@@ -13,6 +14,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../data/network/netwok_info_implementer.dart';
 import '../../data/network/network_info.dart';
+import '../../domain/usecase/forgot_password_usecase.dart';
 
 final instance = GetIt.instance;
 
@@ -50,9 +52,20 @@ Future<void> initAppModule() async {
 
 initLoginModule() {
   if(!GetIt.I.isRegistered<LoginUseCase>()) {
-    // Login use case instance ---------------------------------------------------
+    // Login use case instance -------------------------------------------------
     instance.registerFactory<LoginUseCase>(() => LoginUseCase(instance()));
-    // Login view model instance -------------------------------------------------
+    // Login view model instance -----------------------------------------------
     instance.registerFactory<LoginViewModel>(() => LoginViewModel(instance()));
+  }
+}
+
+initForgotPasswordModule() {
+  if(!GetIt.I.isRegistered<ForgotPasswordUseCase>()) {
+    // Forgot password use case instance ---------------------------------------
+    instance.registerFactory<ForgotPasswordUseCase>(() =>
+        ForgotPasswordUseCase(instance()));
+    // Forgot password view model instance -------------------------------------
+    instance.registerFactory<ForgotPasswordViewModel>(() =>
+        ForgotPasswordViewModel(instance()));
   }
 }
