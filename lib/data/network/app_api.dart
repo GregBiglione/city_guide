@@ -2,6 +2,7 @@ import 'package:city_guide/app/constant.dart';
 import 'package:dio/dio.dart';
 import 'package:retrofit/http.dart';
 
+import '../response/forgot_password_response.dart';
 import '../response/response.dart';
 
 part 'app_api.g.dart';
@@ -16,5 +17,10 @@ abstract class AppServiceClient {
       @Field("password") String password,
       @Field("imei") String imei,
       @Field("deviceType") String deviceType,
+  );
+  
+  @POST("/customers/forgotPassword")
+  Future<ForgotPasswordResponse> newPassword(
+      @Field("email") String email,
   );
 }
