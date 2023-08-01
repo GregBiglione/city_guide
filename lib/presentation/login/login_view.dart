@@ -97,7 +97,7 @@ class _LoginViewState extends State<LoginView> {
   );
 
   //----------------------------------------------------------------------------
-  // Email widget
+  // Username widget
   //----------------------------------------------------------------------------
 
   Widget _usernameWidget() => Padding(

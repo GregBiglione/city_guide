@@ -21,4 +21,8 @@ class AppString {
   static const String loading = "Loading...";
   static const String retryAgain = "Retry again";
   static const String ok = "Ok";
+
+  static const String email = "Email";
+  static const String resetPassword = "Reset password";
+  static const String resetText = "Didn't receive email ? Resend";
 }
