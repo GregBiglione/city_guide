@@ -4,10 +4,10 @@ import 'package:city_guide/data/network/error_data_source.dart';
 import 'package:city_guide/data/network/error_data_source_extension.dart';
 import 'package:city_guide/data/network/error_handler.dart';
 import 'package:city_guide/data/network/failure.dart';
-import 'package:city_guide/data/network/response_code.dart';
 import 'package:city_guide/data/network/response_message.dart';
 
 import 'package:city_guide/data/request/login_request.dart';
+import 'package:city_guide/data/request/new_password_request.dart';
 
 import 'package:city_guide/domain/model/authentication.dart';
 
@@ -16,6 +16,7 @@ import 'package:dartz/dartz.dart';
 import '../../domain/repository/repository.dart';
 import '../data_source/remote_data_source.dart';
 import '../network/network_info.dart';
+import '../response/forgot_password_response.dart';
 
 class RepositoryImplementer implements Repository {
   final RemoteDataSource _remoteDataSource;
@@ -23,11 +24,15 @@ class RepositoryImplementer implements Repository {
 
   RepositoryImplementer(this._remoteDataSource, this._networkInfo);
 
+  //----------------------------------------------------------------------------
+  // Login
+  //----------------------------------------------------------------------------
+
   @override
   Future<Either<Failure, Authentication>> login(LoginRequest loginRequest) async {
     if(await _networkInfo.isConnected) {
       try {
-        // It(s safe to call the API ---------------------------------------------
+        // It's safe to call the API -------------------------------------------
         final response = await _remoteDataSource.login(loginRequest);
 
         if(response.status == ApiInternalStatus.SUCCESS) {
@@ -35,7 +40,7 @@ class RepositoryImplementer implements Repository {
           return Right(response.toDomain());
         }
         else {
-          // Business logic error ------------------------------------------------
+          // Business logic error ----------------------------------------------
           return Left(
               Failure(
                 response.status ?? ApiInternalStatus.FAILURE,
@@ -43,6 +48,41 @@ class RepositoryImplementer implements Repository {
               ),
           );
         }
+      } catch (e) {
+        return Left(ErrorHandler.handle(e).failure);
+      }
+    }
+    else {
+      // Connection error ------------------------------------------------------
+      return Left(ErrorDataSource.NO_INTERNET_CONNECTION.getFailure());
+    }
+  }
+
+  //----------------------------------------------------------------------------
+  // Request new password
+  //----------------------------------------------------------------------------
+
+  @override
+  Future<Either<Failure, ForgotPasswordResponse>> newPassword(NewPasswordRequest newPasswordRequest) async {
+    if(await _networkInfo.isConnected) {
+      try {
+        // It's safe to call the API -------------------------------------------
+        final response = await _remoteDataSource.newPassword(newPasswordRequest);
+
+        if(response.status == ApiInternalStatus.SUCCESS) {
+          // Ok ----------------------------------------------------------------
+          return Right(response.toDomain());
+        }
+        else {
+          // Business logic error ----------------------------------------------
+          return Left(
+            Failure(
+                response.status ?? ApiInternalStatus.FAILURE,
+                response.message ?? ResponseMessage.DEFAULT
+            ),
+          );
+        }
+
       } catch (e) {
         return Left(ErrorHandler.handle(e).failure);
       }
