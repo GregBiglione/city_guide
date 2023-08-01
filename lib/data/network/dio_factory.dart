@@ -3,6 +3,9 @@ import 'package:city_guide/app/constant.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
+import 'dart:convert';
+
+import 'json_converter.dart';
 
 const String APPLICATION_JSON = "application/json";
 const String CONTENT_TYPE = "content-type";
@@ -15,7 +18,7 @@ class DioFactory {
 
   DioFactory(this._appPreferences);
 
-  Future getDio() async {
+  Future<Dio> getDio() async {
     Dio dio = Dio();
     Duration timeOut = const Duration(seconds: 60);
     String language = await _appPreferences.getApplicationLanguage();
@@ -45,6 +48,7 @@ class DioFactory {
           responseHeader: true,
         ),
       );
+      dio.interceptors.add(JsonResponseConverter());
     }
 
     return dio;
