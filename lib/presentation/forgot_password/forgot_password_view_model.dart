@@ -1,12 +1,16 @@
+import 'dart:async';
+
 import 'package:city_guide/presentation/base/base_view_model.dart';
+import 'package:email_validator/email_validator.dart';
 
 class ForgotPasswordViewModel extends BaseViewModel with
     ForgotPasswordViewModelInput, ForgotPasswordViewModelOutput{
-  @override
+  StreamController _emailStreamController = StreamController<String>.broadcast();
 
   // Input ---------------------------------------------------------------------
+  @override
   void dispose() {
-    // TODO: implement dispose
+    _emailStreamController.close();
   }
 
   @override
@@ -15,8 +19,7 @@ class ForgotPasswordViewModel extends BaseViewModel with
   }
 
   @override
-  // TODO: implement inputEmail
-  Sink get inputEmail => throw UnimplementedError();
+  Sink get inputEmail => _emailStreamController.sink;
 
   @override
   newPassword() {
@@ -32,8 +35,13 @@ class ForgotPasswordViewModel extends BaseViewModel with
 
   // Output --------------------------------------------------------------------
   @override
-  // TODO: implement outputIsEmailValid
-  Stream<bool> get outputIsEmailValid => throw UnimplementedError();
+  Stream<bool> get outputIsEmailValid => _emailStreamController.stream
+      .map((email) => _isEmailValid(email));
+
+  // Private function ----------------------------------------------------------
+  bool _isEmailValid(String email) {
+    return email.isNotEmpty && EmailValidator.validate(email);
+  }
 }
 
 // Input means order that view model will receive from view --------------------
