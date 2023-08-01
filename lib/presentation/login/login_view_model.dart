@@ -52,7 +52,7 @@ class LoginViewModel extends BaseViewModel with LoginViewModelInput,
             loginObject.password),
     )).fold(
             (failure) => {
-              // Failure ---------------------------------------------------------------
+              // Failure -------------------------------------------------------
               inputState.add(ErrorState(StateRendererType.POPUP_ERROR_STATE, failure.message)),
             },
             (data) {
