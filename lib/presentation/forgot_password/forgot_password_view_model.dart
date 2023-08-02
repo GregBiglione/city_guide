@@ -13,7 +13,6 @@ class ForgotPasswordViewModel extends BaseViewModel with
   final StreamController _emailStreamController = StreamController<String>.broadcast();
   final StreamController _isAllInputValidStreamController = StreamController<void>.broadcast();
   final StreamController isResetPasswordSuccessfullyStreamController = StreamController<bool>();
-  //NewPassword newPasswordObject = const NewPassword("");
   final ForgotPasswordUseCase _forgotPasswordUseCase;
   String email = "";
 
@@ -24,7 +23,6 @@ class ForgotPasswordViewModel extends BaseViewModel with
   void dispose() {
     _emailStreamController.close();
     _isAllInputValidStreamController.close();
-    //isResetPasswordSuccessfullyStreamController.close();
   }
 
   @override
@@ -48,11 +46,11 @@ class ForgotPasswordViewModel extends BaseViewModel with
             // Failure ---------------------------------------------------------
             inputState.add(ErrorState(StateRendererType.POPUP_ERROR_STATE, failure.message)),
           },
-          (data) {
+          (supportMessage) {
             // Reset password --------------------------------------------------
             inputState.add(ContentState());
-            // Navigate to main screen after login -----------------------------
-            //isResetPasswordSuccessfullyStreamController.add(true);
+            // Show success pop up ---------------------------------------------
+            inputState.add(SuccessState(supportMessage));
           }
     );
   }
