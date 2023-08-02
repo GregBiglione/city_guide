@@ -8,6 +8,7 @@ import 'package:city_guide/data/network/response_code.dart';
 import 'package:city_guide/data/network/response_message.dart';
 
 import 'package:city_guide/data/request/login_request.dart';
+import 'package:city_guide/data/request/register_request.dart';
 
 import 'package:city_guide/domain/model/authentication.dart';
 
@@ -82,6 +83,40 @@ class RepositoryImplementer implements Repository {
           );
         }
 
+      } catch (e) {
+        return Left(ErrorHandler.handle(e).failure);
+      }
+    }
+    else {
+      // Connection error ------------------------------------------------------
+      return Left(ErrorDataSource.NO_INTERNET_CONNECTION.getFailure());
+    }
+  }
+
+  //----------------------------------------------------------------------------
+  // Register
+  //----------------------------------------------------------------------------
+
+  @override
+  Future<Either<Failure, Authentication>> register(RegisterRequest registerRequest) async {
+    if(await _networkInfo.isConnected) {
+      try {
+        // It's safe to call the API -------------------------------------------
+        final response = await _remoteDataSource.register(registerRequest);
+
+        if(response.status == ApiInternalStatus.SUCCESS) {
+          // Ok ------------------------------------------------------------------
+          return Right(response.toDomain());
+        }
+        else {
+          // Business logic error ----------------------------------------------
+          return Left(
+            Failure(
+                response.status ?? ApiInternalStatus.FAILURE,
+                response.message ?? ResponseMessage.DEFAULT
+            ),
+          );
+        }
       } catch (e) {
         return Left(ErrorHandler.handle(e).failure);
       }
