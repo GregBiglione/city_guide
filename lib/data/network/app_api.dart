@@ -23,4 +23,14 @@ abstract class AppServiceClient {
   Future<ForgotPasswordResponse> newPassword(
       @Field("email") String email,
   );
+
+  @POST("/customers/register")
+  Future<AuthenticationResponse> register(
+      @Field("countryMobileCode") String countryMobileCode,
+      @Field("username") String username,
+      @Field("email") String email,
+      @Field("password") String password,
+      @Field("mobileNumber") String mobileNumber,
+      @Field("profilePicture") String profilePicture,
+  );
 }
