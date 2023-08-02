@@ -4,10 +4,10 @@ import 'package:city_guide/data/network/error_data_source.dart';
 import 'package:city_guide/data/network/error_data_source_extension.dart';
 import 'package:city_guide/data/network/error_handler.dart';
 import 'package:city_guide/data/network/failure.dart';
+import 'package:city_guide/data/network/response_code.dart';
 import 'package:city_guide/data/network/response_message.dart';
 
 import 'package:city_guide/data/request/login_request.dart';
-import 'package:city_guide/data/request/new_password_request.dart';
 
 import 'package:city_guide/domain/model/authentication.dart';
 
@@ -16,7 +16,6 @@ import 'package:dartz/dartz.dart';
 import '../../domain/repository/repository.dart';
 import '../data_source/remote_data_source.dart';
 import '../network/network_info.dart';
-import '../response/forgot_password_response.dart';
 
 class RepositoryImplementer implements Repository {
   final RemoteDataSource _remoteDataSource;
@@ -63,11 +62,11 @@ class RepositoryImplementer implements Repository {
   //----------------------------------------------------------------------------
 
   @override
-  Future<Either<Failure, ForgotPasswordResponse>> newPassword(NewPasswordRequest newPasswordRequest) async {
+  Future<Either<Failure, String>> newPassword(String email) async {
     if(await _networkInfo.isConnected) {
       try {
         // It's safe to call the API -------------------------------------------
-        final response = await _remoteDataSource.newPassword(newPasswordRequest);
+        final response = await _remoteDataSource.newPassword(email);
 
         if(response.status == ApiInternalStatus.SUCCESS) {
           // Ok ----------------------------------------------------------------
@@ -77,7 +76,7 @@ class RepositoryImplementer implements Repository {
           // Business logic error ----------------------------------------------
           return Left(
             Failure(
-                response.status ?? ApiInternalStatus.FAILURE,
+                response.status ?? ResponseCode.DEFAULT,
                 response.message ?? ResponseMessage.DEFAULT
             ),
           );

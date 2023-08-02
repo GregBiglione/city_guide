@@ -1,5 +1,7 @@
 import 'package:city_guide/app/extension.dart';
+import 'package:city_guide/data/request/new_password_request.dart';
 import 'package:city_guide/data/response/forgot_password_response.dart';
+import 'package:city_guide/domain/model/forgot_password.dart';
 
 import '../../domain/model/authentication.dart';
 import '../../domain/model/contacts.dart';
@@ -40,9 +42,7 @@ extension AuthenticationResponseMapper on AuthenticationResponse? {
 }
 
 extension ForgotPasswordResponseMapper on ForgotPasswordResponse? {
-  ForgotPasswordResponse toDomain() {
-    return ForgotPasswordResponse(
-      this?.supportMessage.orEmpty() ?? EMPTY,
-    );
+  String toDomain() {
+    return this?.supportMessage.orEmpty() ?? EMPTY;
   }
 }

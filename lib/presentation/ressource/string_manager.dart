@@ -23,7 +23,7 @@ class AppString {
   static const String ok = "Ok";
 
   static const String email = "Email";
-  static const String emailError = "Email is wrong";
+  static const String emailError = "Invalid email";
   static const String resetPassword = "Reset password";
   static const String resetText = "Didn't receive email ? Resend";
 }

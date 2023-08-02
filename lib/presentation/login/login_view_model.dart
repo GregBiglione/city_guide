@@ -30,7 +30,7 @@ class LoginViewModel extends BaseViewModel with LoginViewModelInput,
 
   @override
   void start() {
-    // View tells state to show content of the screen
+    // View tells state to show content of the screen --------------------------
     inputState.add(ContentState());
   }
 

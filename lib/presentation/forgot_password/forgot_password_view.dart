@@ -2,9 +2,11 @@ import 'package:city_guide/presentation/common/state_renderer/state_renderer_imp
 import 'package:city_guide/presentation/forgot_password/forgot_password_view_model.dart';
 import 'package:city_guide/presentation/ressource/color_manager.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 
 import '../../app/di/di.dart';
 import '../ressource/asset_manager.dart';
+import '../ressource/route_manager.dart';
 import '../ressource/string_manager.dart';
 import '../ressource/value_manager.dart';
 
@@ -25,6 +27,13 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
     _emailController.addListener(() =>
         _viewModel.setEmail(_emailController.text)
     );
+   /* _viewModel.isResetPasswordSuccessfullyStreamController.stream
+        .listen((isPasswordReset) {
+      // Navigate to main screen -------------------------------------------
+      SchedulerBinding.instance.addPostFrameCallback((_) {
+        Navigator.of(context).pushReplacementNamed(Routes.loginRoute);
+      });
+    });*/
   }
 
   @override
@@ -74,7 +83,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
             const SizedBox(height: AppSize.s28,),
             _resetPasswordButtonWidget(),
             const SizedBox(height: AppSize.s8,),
-            _resendText(),
+            //_resendText(),
           ],
         ),
       ),

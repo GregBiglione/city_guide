@@ -6,5 +6,5 @@ import '../response/response.dart';
 
 abstract class RemoteDataSource {
   Future<AuthenticationResponse> login(LoginRequest loginRequest);
-  Future<ForgotPasswordResponse> newPassword(NewPasswordRequest newPasswordRequest);
+  Future<ForgotPasswordResponse> newPassword(String email);
 }

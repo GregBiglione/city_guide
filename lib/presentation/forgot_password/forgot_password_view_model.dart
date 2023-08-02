@@ -1,18 +1,21 @@
 import 'dart:async';
 
-import 'package:city_guide/domain/usecase/forgot_password_usecase_input.dart';
 import 'package:city_guide/presentation/base/base_view_model.dart';
 import 'package:city_guide/presentation/common/new_password.dart';
 import 'package:email_validator/email_validator.dart';
 
 import '../../domain/usecase/forgot_password_usecase.dart';
+import '../common/state_renderer/state_renderer.dart';
+import '../common/state_renderer/state_renderer_implementer.dart';
 
 class ForgotPasswordViewModel extends BaseViewModel with
     ForgotPasswordViewModelInput, ForgotPasswordViewModelOutput{
-  StreamController _emailStreamController = StreamController<String>.broadcast();
-  StreamController _isAllInputValidStreamController = StreamController<void>.broadcast();
-  NewPassword newPasswordObject = const NewPassword("");
-  ForgotPasswordUseCase? _forgotPasswordUseCase;
+  final StreamController _emailStreamController = StreamController<String>.broadcast();
+  final StreamController _isAllInputValidStreamController = StreamController<void>.broadcast();
+  final StreamController isResetPasswordSuccessfullyStreamController = StreamController<bool>();
+  //NewPassword newPasswordObject = const NewPassword("");
+  final ForgotPasswordUseCase _forgotPasswordUseCase;
+  String email = "";
 
   ForgotPasswordViewModel(this._forgotPasswordUseCase);
 
@@ -21,11 +24,13 @@ class ForgotPasswordViewModel extends BaseViewModel with
   void dispose() {
     _emailStreamController.close();
     _isAllInputValidStreamController.close();
+    //isResetPasswordSuccessfullyStreamController.close();
   }
 
   @override
   void start() {
-    // TODO: implement start
+    // View tells state to show content of the screen --------------------------
+    inputState.add(ContentState());
   }
 
   @override
@@ -37,19 +42,17 @@ class ForgotPasswordViewModel extends BaseViewModel with
 
   @override
   newPassword() async {
-    (await _forgotPasswordUseCase?.execute(
-        ForgotPasswordUseCaseInput(
-          newPasswordObject.email,
-        )
-    ))?.fold(
+    inputState.add(LoadingState(stateRendererType: StateRendererType.POPUP_LOADING_STATE));
+    (await _forgotPasswordUseCase.execute(email)).fold(
           (failure) => {
             // Failure ---------------------------------------------------------
-            print(failure.message)
+            inputState.add(ErrorState(StateRendererType.POPUP_ERROR_STATE, failure.message)),
           },
           (data) {
-            // Authentication --------------------------------------------------
-            print(data.message);
+            // Reset password --------------------------------------------------
+            inputState.add(ContentState());
             // Navigate to main screen after login -----------------------------
+            //isResetPasswordSuccessfullyStreamController.add(true);
           }
     );
   }
@@ -57,7 +60,7 @@ class ForgotPasswordViewModel extends BaseViewModel with
   @override
   setEmail(String email) {
     inputEmail.add(email);
-    newPasswordObject = newPasswordObject.copyWith(email: email);
+    this.email = email;
     _validate();
   }
 
@@ -68,7 +71,7 @@ class ForgotPasswordViewModel extends BaseViewModel with
 
   @override
   Stream<bool> get outputIsAllInputValid => _isAllInputValidStreamController.stream
-      .map((_) => _isAllInputValid());
+      .map((isAllInputValid) => _isAllInputValid());
 
   // Private function ----------------------------------------------------------
   bool _isEmailValid(String email) {
@@ -76,7 +79,7 @@ class ForgotPasswordViewModel extends BaseViewModel with
   }
 
   bool _isAllInputValid() {
-    return _isEmailValid(newPasswordObject.email);
+    return _isEmailValid(email);
   }
 
   _validate() {
