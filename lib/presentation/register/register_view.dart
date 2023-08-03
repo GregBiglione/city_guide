@@ -1,9 +1,12 @@
+import 'dart:io';
+
 import 'package:city_guide/app/di/di.dart';
 import 'package:city_guide/data/mapper/mapper.dart';
 import 'package:city_guide/presentation/register/register_view_model.dart';
 import 'package:city_guide/presentation/ressource/value_manager.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 import '../common/state_renderer/state_renderer_implementer.dart';
 import '../ressource/asset_manager.dart';
@@ -260,11 +263,54 @@ class _RegisterViewState extends State<RegisterView> {
       child: GestureDetector(
         child: _getMediaWidget(),
         onTap: () {
-          _showPicturePIcker(context);
+          //_showPicturePicker(context);
         },
       ),
     ),
   );
+
+  //----------------------------------------------------------------------------
+  // Media widget
+  //----------------------------------------------------------------------------
+
+  Widget _getMediaWidget() => Padding(
+    padding: const EdgeInsets.only(
+        left: AppPadding.p8,
+        right: AppPadding.p8
+    ),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        const Flexible(
+          child: Text(AppString.profilePicture),
+        ),
+        Flexible(
+          child: StreamBuilder<File?>(
+            stream: _viewModel.outputIsProfilePictureValid,
+            builder: (context, snapshot) {
+              return _imagePicked(snapshot.data);
+            },
+          ),
+        ),
+        Flexible(
+          child: SvgPicture.asset(ImageAsset.photoCameraIc),
+        ),
+      ],
+    ),
+  );
+
+  //----------------------------------------------------------------------------
+  // Widget image picked
+  //----------------------------------------------------------------------------
+
+  Widget _imagePicked(File? image) {
+    if(image != null && image.path.isNotEmpty) {
+      return Image.file(image);
+    }
+    else {
+      return Container();
+    }
+  }
 
   //----------------------------------------------------------------------------
   // Register button widget

@@ -34,5 +34,6 @@ class AppString {
   static const String invalidMobileNumber = "Invalid mobile number";
   static const String invalidEmail = "Invalid email";
   static const String invalidPassword = "Invalid password";
+  static const String profilePicture = "Profile picture";
   static const String register = "Register";
 }
