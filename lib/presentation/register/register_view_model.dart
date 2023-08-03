@@ -6,6 +6,7 @@ import 'package:city_guide/presentation/base/base_view_model.dart';
 import 'package:city_guide/presentation/ressource/string_manager.dart';
 
 import '../../app/function.dart';
+import '../common/register.dart';
 
 class RegisterViewModel extends BaseViewModel with RegisterViewModelInput,
     RegisterViewModelOutput{
@@ -22,6 +23,7 @@ class RegisterViewModel extends BaseViewModel with RegisterViewModelInput,
   final StreamController _isAllInputValidStreamController = StreamController<String>
       .broadcast();
   final RegisterUseCase _registerUseCase;
+  Register registerObject = const Register("", "", "", "", "", "");
 
   RegisterViewModel(this._registerUseCase);
 
