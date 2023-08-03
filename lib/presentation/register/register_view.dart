@@ -1,6 +1,10 @@
 import 'package:city_guide/app/di/di.dart';
 import 'package:city_guide/presentation/register/register_view_model.dart';
+import 'package:city_guide/presentation/ressource/value_manager.dart';
 import 'package:flutter/material.dart';
+
+import '../common/state_renderer/state_renderer_implementer.dart';
+import '../ressource/color_manager.dart';
 
 class RegisterView extends StatefulWidget {
   const RegisterView({Key? key}) : super(key: key);
@@ -51,6 +55,31 @@ class _RegisterViewState extends State<RegisterView> {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      backgroundColor: ColorManager.white,
+      appBar: AppBar(
+        elevation: AppSize.s0,
+        iconTheme: IconThemeData(
+          color: ColorManager.primary,
+        ),
+        backgroundColor: ColorManager.white,
+      ),
+      body: StreamBuilder<FlowState>(
+        stream: _viewModel.outputState,
+        builder: (context, snapshot) {
+          return Center(
+            child: snapshot.data?.getWidgetScreen(
+                context,
+                _getContentWidget(),
+                    () {
+                  _viewModel.register();
+                }
+            ) ?? _getContentWidget(),
+          );
+        },
+      ),
+    );
   }
+
+  Widget _getContentWidget() => Container();
 }
