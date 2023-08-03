@@ -33,3 +33,30 @@ class RegisterViewModel extends BaseViewModel {
     super.dispose();
   }
 }
+
+// Input means order that view model will receive from view --------------------
+abstract class RegisterViewModelInput {
+  // 1 function for action -----------------------------------------------------
+  register();
+
+  // 5 sinks for stream --------------------------------------------------------
+  Sink get inputUsername;
+  Sink get inputMobileNumber;
+  Sink get inputEmail;
+  Sink get inputPassword;
+  Sink get inputProfilePicture;
+}
+
+// Output means data/result that will be sent from view to view ----------------
+abstract class RegisterViewModelOutput {
+  // 9 streams for validation --------------------------------------------------
+  Stream<bool> get outputIsUsernameValid;
+  Stream<String> get outputErrorUsername;
+  Stream<bool> get outputIsMobileNumberValid;
+  Stream<String> get outputErrorMobileNumber;
+  Stream<bool> get outputIsEmailValid;
+  Stream<String> get outputErrorEmail;
+  Stream<bool> get outputIsPasswordValid;
+  Stream<String> get outputErrorPassword;
+  Stream<File> get outputIsProfilePictureValid;
+}
