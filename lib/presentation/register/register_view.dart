@@ -12,6 +12,7 @@ import 'package:image_picker/image_picker.dart';
 import '../common/state_renderer/state_renderer_implementer.dart';
 import '../ressource/asset_manager.dart';
 import '../ressource/color_manager.dart';
+import '../ressource/route_manager.dart';
 import '../ressource/string_manager.dart';
 
 class RegisterView extends StatefulWidget {
@@ -111,8 +112,9 @@ class _RegisterViewState extends State<RegisterView> {
             _passwordWidget(),
             const SizedBox(height: AppSize.s28,),
             _profilePictureWidget(),
-            //_registerButtonWidget(),
-            //_forgetPasswordAndRegister(),
+            const SizedBox(height: AppSize.s28,),
+            _registerButtonWidget(),
+            _alreadyHaveAccountWidget(),
           ],
         ),
       ),
@@ -318,7 +320,7 @@ class _RegisterViewState extends State<RegisterView> {
   // Register button widget
   //----------------------------------------------------------------------------
 
-  /*Widget _registerButtonWidget() => Padding(
+  Widget _registerButtonWidget() => Padding(
     padding: const EdgeInsets.only(
       left: AppPadding.p28,
       right: AppPadding.p28,
@@ -342,7 +344,7 @@ class _RegisterViewState extends State<RegisterView> {
         );
       },
     ),
-  );*/
+  );
 
   //----------------------------------------------------------------------------
   // Show picture picker
@@ -391,6 +393,27 @@ class _RegisterViewState extends State<RegisterView> {
       },
     );
   }
+
+  //----------------------------------------------------------------------------
+  // Already have account widget
+  //----------------------------------------------------------------------------
+
+  Widget _alreadyHaveAccountWidget() => Padding(
+    padding: const EdgeInsets.only(
+      top: AppPadding.p8,
+      right: AppPadding.p28,
+      left: AppPadding.p28,
+    ),
+    child: TextButton(
+      onPressed: () {
+        Navigator.of(context).pop();
+      },
+      child: Text(
+        AppString.haveAccount,
+        style: Theme.of(context).textTheme.titleSmall,
+      ),
+    ),
+  );
 
   //----------------------------------------------------------------------------
   // Set image from gallery
