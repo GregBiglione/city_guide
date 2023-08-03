@@ -6,8 +6,10 @@ import 'package:city_guide/data/network/dio_factory.dart';
 import 'package:city_guide/data/repository/repository_implementer.dart';
 import 'package:city_guide/domain/repository/repository.dart';
 import 'package:city_guide/domain/usecase/login_usecase.dart';
+import 'package:city_guide/domain/usecase/register_use_case.dart';
 import 'package:city_guide/presentation/forgot_password/forgot_password_view_model.dart';
 import 'package:city_guide/presentation/login/login_view_model.dart';
+import 'package:city_guide/presentation/register/register_view_model.dart';
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -67,5 +69,14 @@ initForgotPasswordModule() {
     // Forgot password view model instance -------------------------------------
     instance.registerFactory<ForgotPasswordViewModel>(() =>
         ForgotPasswordViewModel(instance()));
+  }
+}
+
+initRegisterModule() {
+  if(!GetIt.I.isRegistered<RegisterUseCase>()) {
+    // Register use case instance ----------------------------------------------
+    instance.registerFactory<RegisterUseCase>(() => RegisterUseCase(instance()));
+    // Register view model instance --------------------------------------------
+    instance.registerFactory<RegisterViewModel>(() => RegisterViewModel(instance()));
   }
 }
