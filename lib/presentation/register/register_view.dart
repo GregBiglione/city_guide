@@ -105,6 +105,7 @@ class _RegisterViewState extends State<RegisterView> {
             const SizedBox(height: AppSize.s28,),
             _passwordWidget(),
             const SizedBox(height: AppSize.s28,),
+            _profilePictureWidget(),
             //_registerButtonWidget(),
             //_forgetPasswordAndRegister(),
           ],
@@ -238,6 +239,30 @@ class _RegisterViewState extends State<RegisterView> {
           ),
         );
       },
+    ),
+  );
+
+  //----------------------------------------------------------------------------
+  // Profile picture widget
+  //----------------------------------------------------------------------------
+
+  Widget _profilePictureWidget() => Padding(
+    padding: const EdgeInsets.only(
+      left: AppPadding.p28,
+      right: AppPadding.p28,
+    ),
+    child: Container(
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: ColorManager.lightGrey,
+        ),
+      ),
+      child: GestureDetector(
+        child: _getMediaWidget(),
+        onTap: () {
+          _showPicturePIcker(context);
+        },
+      ),
     ),
   );
 
