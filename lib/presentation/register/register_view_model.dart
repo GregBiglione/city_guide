@@ -68,6 +68,7 @@ class RegisterViewModel extends BaseViewModel with RegisterViewModelInput,
 
   @override
   setUsername(String username) {
+    inputUsername.add(username);
     if(_isUsernameValid(username)) {
       // Update register object with username value ----------------------------
       registerObject = registerObject.copyWith(username: username);
@@ -94,6 +95,7 @@ class RegisterViewModel extends BaseViewModel with RegisterViewModelInput,
 
   @override
   setMobileNumber(String mobileNumber) {
+    inputMobileNumber.add(mobileNumber);
     if(_isMobileNumberValid(mobileNumber)) {
       // Update register object with mobile number value -----------------------
       registerObject = registerObject.copyWith(mobileNumber: mobileNumber);
@@ -107,6 +109,7 @@ class RegisterViewModel extends BaseViewModel with RegisterViewModelInput,
 
   @override
   setEmail(String email) {
+    inputEmail.add(email);
     if(_isUsernameValid(email)) {
       // Update register object with email value -------------------------------
       registerObject = registerObject.copyWith(email: email);
@@ -120,6 +123,7 @@ class RegisterViewModel extends BaseViewModel with RegisterViewModelInput,
 
   @override
   setPassword(String password) {
+    inputPassword.add(password);
     if(_isPasswordValid(password)) {
       // Update register object with password value ----------------------------
       registerObject = registerObject.copyWith(password: password);
@@ -133,6 +137,7 @@ class RegisterViewModel extends BaseViewModel with RegisterViewModelInput,
 
   @override
   setProfilePicture(File file) {
+    inputProfilePicture.add(file);
     if(file.path.isNotEmpty) {
       // Update register object with profile picture value ---------------------
       registerObject = registerObject.copyWith(profilePicture: file.path);
