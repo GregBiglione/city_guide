@@ -7,6 +7,7 @@ import 'package:city_guide/presentation/ressource/value_manager.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../common/state_renderer/state_renderer_implementer.dart';
 import '../ressource/asset_manager.dart';
@@ -22,6 +23,7 @@ class RegisterView extends StatefulWidget {
 
 class _RegisterViewState extends State<RegisterView> {
   final RegisterViewModel _viewModel = instance<RegisterViewModel>();
+  final ImagePicker imagePicker = instance<ImagePicker>();
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _mobileNumberController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
@@ -263,7 +265,7 @@ class _RegisterViewState extends State<RegisterView> {
       child: GestureDetector(
         child: _getMediaWidget(),
         onTap: () {
-          //_showPicturePicker(context);
+          _showPicturePicker(context);
         },
       ),
     ),
@@ -341,4 +343,70 @@ class _RegisterViewState extends State<RegisterView> {
       },
     ),
   );*/
+
+  //----------------------------------------------------------------------------
+  // Show picture picker
+  //----------------------------------------------------------------------------
+
+  _showPicturePicker(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return SafeArea(
+            child: Wrap(
+              children: [
+                ListTile(
+                  leading: const Icon(
+                    Icons.camera,
+                  ),
+                  trailing: const Icon(
+                    Icons.arrow_forward,
+                  ),
+                  title: const Text(
+                    AppString.photoGallery,
+                  ),
+                  onTap: () {
+                    _imageFromGallery();
+                    Navigator.of(context).pop();
+                  },
+                ),
+                ListTile(
+                  leading: const Icon(
+                    Icons.camera_alt_rounded,
+                  ),
+                  trailing: const Icon(
+                    Icons.arrow_forward,
+                  ),
+                  title: const Text(
+                    AppString.photoCamera,
+                  ),
+                  onTap: () {
+                    _imageFromCamera();
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            ),
+        );
+      },
+    );
+  }
+
+  //----------------------------------------------------------------------------
+  // Set image from gallery
+  //----------------------------------------------------------------------------
+
+  _imageFromGallery() async {
+    var image = await imagePicker.pickImage(source: ImageSource.gallery);
+    _viewModel.setProfilePicture(File(image?.path ?? ""));
+  }
+
+  //----------------------------------------------------------------------------
+  // Set image from camera
+  //----------------------------------------------------------------------------
+
+  _imageFromCamera() async {
+    var image = await imagePicker.pickImage(source: ImageSource.camera);
+    _viewModel.setProfilePicture(File(image?.path ?? ""));
+  }
 }

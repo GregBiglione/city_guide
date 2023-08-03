@@ -11,6 +11,7 @@ import 'package:city_guide/presentation/forgot_password/forgot_password_view_mod
 import 'package:city_guide/presentation/login/login_view_model.dart';
 import 'package:city_guide/presentation/register/register_view_model.dart';
 import 'package:get_it/get_it.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -78,5 +79,7 @@ initRegisterModule() {
     instance.registerFactory<RegisterUseCase>(() => RegisterUseCase(instance()));
     // Register view model instance --------------------------------------------
     instance.registerFactory<RegisterViewModel>(() => RegisterViewModel(instance()));
+    // Register image picker ---------------------------------------------------
+    instance.registerFactory<ImagePicker>(() => ImagePicker());
   }
 }

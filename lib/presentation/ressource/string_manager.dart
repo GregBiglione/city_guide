@@ -35,5 +35,7 @@ class AppString {
   static const String invalidEmail = "Invalid email";
   static const String invalidPassword = "Invalid password";
   static const String profilePicture = "Profile picture";
+  static const String photoGallery = "Photo from gallery";
+  static const String photoCamera = "Photo from camera";
   static const String register = "Register";
 }
