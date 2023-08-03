@@ -27,4 +27,9 @@ class AppString {
   static const String resetPassword = "Reset password";
   static const String resetText = "Didn't receive email ? Resend";
   static const String successTitle = "Success";
+
+  static const String invalidUserName = "Invalid username";
+  static const String invalidMobileNumber = "Invalid mobile number";
+  static const String invalidEmail = "Invalid email";
+  static const String invalidPassword = "Invalid password";
 }

@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/services.dart';
 
 import '../domain/model/device_info.dart';
@@ -29,4 +30,8 @@ Future<DeviceInfo> getDeviceDetail() async {
   }
 
   return DeviceInfo(name, identifier!, version);
+}
+
+bool isEmailValid(String email) {
+  return EmailValidator.validate(email);
 }
