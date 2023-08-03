@@ -60,6 +60,78 @@ class RegisterViewModel extends BaseViewModel with RegisterViewModelInput,
   Sink get inputProfilePicture => _profilePictureStreamController.sink;
 
   @override
+  setUsername(String username) {
+    if(_isUsernameValid(username)) {
+      // Update register object with username value ----------------------------
+      registerObject = registerObject.copyWith(username: username);
+    }
+    else {
+      // Reset value in register object ----------------------------------------
+      registerObject = registerObject.copyWith(username: "");
+    }
+  }
+
+  @override
+  setCountryCode(String countryCode) {
+    if(countryCode.isNotEmpty) {
+      // Update register object with country code value ------------------------
+      registerObject = registerObject.copyWith(countryMobileCode: countryCode);
+    }
+    else {
+      // Reset value in register object ----------------------------------------
+      registerObject = registerObject.copyWith(countryMobileCode: "");
+    }
+  }
+
+  @override
+  setMobileNumber(String mobileNumber) {
+    if(_isMobileNumberValid(mobileNumber)) {
+      // Update register object with mobile number value -----------------------
+      registerObject = registerObject.copyWith(mobileNumber: mobileNumber);
+    }
+    else {
+      // Reset value in register object ----------------------------------------
+      registerObject = registerObject.copyWith(mobileNumber: "");
+    }
+  }
+
+  @override
+  setEmail(String email) {
+    if(_isUsernameValid(email)) {
+      // Update register object with email value -------------------------------
+      registerObject = registerObject.copyWith(email: email);
+    }
+    else {
+      // Reset value in register object ----------------------------------------
+      registerObject = registerObject.copyWith(email: "");
+    }
+  }
+
+  @override
+  setPassword(String password) {
+    if(_isPasswordValid(password)) {
+      // Update register object with password value ----------------------------
+      registerObject = registerObject.copyWith(password: password);
+    }
+    else {
+      // Reset value in register object ----------------------------------------
+      registerObject = registerObject.copyWith(password: "");
+    }
+  }
+
+  @override
+  setProfilePicture(File file) {
+    if(file.path.isNotEmpty) {
+      // Update register object with profile picture value ---------------------
+      registerObject = registerObject.copyWith(profilePicture: file.path);
+    }
+    else {
+      // Reset value in register object ----------------------------------------
+      registerObject = registerObject.copyWith(profilePicture: "");
+    }
+  }
+
+  @override
   register() {
     // TODO: implement register
     throw UnimplementedError();
@@ -135,7 +207,13 @@ class RegisterViewModel extends BaseViewModel with RegisterViewModelInput,
 
 // Input means order that view model will receive from view --------------------
 abstract class RegisterViewModelInput {
-  // 1 function for action -----------------------------------------------------
+  // 7 functions for action ----------------------------------------------------
+  setUsername(String username);
+  setCountryCode(String countryCode);
+  setMobileNumber(String mobileNumber);
+  setEmail(String email);
+  setPassword(String password);
+  setProfilePicture(File file);
   register();
 
   // 5 sinks for stream --------------------------------------------------------
