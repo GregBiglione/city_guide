@@ -60,6 +60,9 @@ class RegisterViewModel extends BaseViewModel with RegisterViewModelInput,
   Sink get inputProfilePicture => _profilePictureStreamController.sink;
 
   @override
+  Sink get inputIsAllInputValid => _isAllInputValidStreamController.sink;
+
+  @override
   setUsername(String username) {
     if(_isUsernameValid(username)) {
       // Update register object with username value ----------------------------
@@ -69,6 +72,7 @@ class RegisterViewModel extends BaseViewModel with RegisterViewModelInput,
       // Reset value in register object ----------------------------------------
       registerObject = registerObject.copyWith(username: "");
     }
+    _validate();
   }
 
   @override
@@ -81,6 +85,7 @@ class RegisterViewModel extends BaseViewModel with RegisterViewModelInput,
       // Reset value in register object ----------------------------------------
       registerObject = registerObject.copyWith(countryMobileCode: "");
     }
+    _validate();
   }
 
   @override
@@ -93,6 +98,7 @@ class RegisterViewModel extends BaseViewModel with RegisterViewModelInput,
       // Reset value in register object ----------------------------------------
       registerObject = registerObject.copyWith(mobileNumber: "");
     }
+    _validate();
   }
 
   @override
@@ -105,6 +111,7 @@ class RegisterViewModel extends BaseViewModel with RegisterViewModelInput,
       // Reset value in register object ----------------------------------------
       registerObject = registerObject.copyWith(email: "");
     }
+    _validate();
   }
 
   @override
@@ -117,6 +124,7 @@ class RegisterViewModel extends BaseViewModel with RegisterViewModelInput,
       // Reset value in register object ----------------------------------------
       registerObject = registerObject.copyWith(password: "");
     }
+    _validate();
   }
 
   @override
@@ -129,6 +137,7 @@ class RegisterViewModel extends BaseViewModel with RegisterViewModelInput,
       // Reset value in register object ----------------------------------------
       registerObject = registerObject.copyWith(profilePicture: "");
     }
+    _validate();
   }
 
   @override
@@ -191,6 +200,11 @@ class RegisterViewModel extends BaseViewModel with RegisterViewModelInput,
   Stream<File> get outputIsProfilePictureValid => _profilePictureStreamController
       .stream.map((file) => file);
 
+  // All inputs valid ----------------------------------------------------------
+  @override
+  Stream<bool> get outputIsAllInputValid => _isAllInputValidStreamController
+      .stream.map((_) => _isAllInputValid());
+
   // Private function ----------------------------------------------------------
   bool _isUsernameValid(String username) {
     return username.length >= 8;
@@ -202,6 +216,19 @@ class RegisterViewModel extends BaseViewModel with RegisterViewModelInput,
 
   bool _isPasswordValid(String password) {
     return password.length >= 8;
+  }
+
+  bool _isAllInputValid() {
+    return registerObject.username.isNotEmpty
+        && registerObject.countryMobileCode.isNotEmpty
+        && registerObject.mobileNumber.isNotEmpty
+        && registerObject.email.isNotEmpty
+        && registerObject.password.isNotEmpty
+        && registerObject.profilePicture.isNotEmpty;
+  }
+
+  _validate() {
+    inputIsAllInputValid.add(null);
   }
 }
 
@@ -216,17 +243,18 @@ abstract class RegisterViewModelInput {
   setProfilePicture(File file);
   register();
 
-  // 5 sinks for stream --------------------------------------------------------
+  // 6 sinks for stream --------------------------------------------------------
   Sink get inputUsername;
   Sink get inputMobileNumber;
   Sink get inputEmail;
   Sink get inputPassword;
   Sink get inputProfilePicture;
+  Sink get inputIsAllInputValid;
 }
 
 // Output means data/result that will be sent from view to view ----------------
 abstract class RegisterViewModelOutput {
-  // 9 streams for validation --------------------------------------------------
+  // 10 streams for validation -------------------------------------------------
   Stream<bool> get outputIsUsernameValid;
   Stream<String?> get outputErrorUsername;
   Stream<bool> get outputIsMobileNumberValid;
@@ -236,4 +264,5 @@ abstract class RegisterViewModelOutput {
   Stream<bool> get outputIsPasswordValid;
   Stream<String?> get outputErrorPassword;
   Stream<File> get outputIsProfilePictureValid;
+  Stream<bool> get outputIsAllInputValid;
 }
