@@ -2,11 +2,14 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:city_guide/domain/usecase/register_use_case.dart';
+import 'package:city_guide/domain/usecase/register_use_case_input.dart';
 import 'package:city_guide/presentation/base/base_view_model.dart';
 import 'package:city_guide/presentation/ressource/string_manager.dart';
 
 import '../../app/function.dart';
 import '../common/register.dart';
+import '../common/state_renderer/state_renderer.dart';
+import '../common/state_renderer/state_renderer_implementer.dart';
 
 class RegisterViewModel extends BaseViewModel with RegisterViewModelInput,
     RegisterViewModelOutput{
@@ -30,7 +33,8 @@ class RegisterViewModel extends BaseViewModel with RegisterViewModelInput,
    // Input ---------------------------------------------------------------------
   @override
   void start() {
-    // TODO: implement start
+    // View tells state to show content of the screen --------------------------
+    inputState.add(ContentState());
   }
 
   @override
@@ -141,9 +145,27 @@ class RegisterViewModel extends BaseViewModel with RegisterViewModelInput,
   }
 
   @override
-  register() {
-    // TODO: implement register
-    throw UnimplementedError();
+  register() async {
+    inputState.add(LoadingState(stateRendererType: StateRendererType.POPUP_LOADING_STATE));
+    (await _registerUseCase.execute(
+      RegisterUseCaseInput(
+        registerObject.countryMobileCode,
+        registerObject.username,
+        registerObject.email,
+        registerObject.password,
+        registerObject.mobileNumber,
+        registerObject.profilePicture,
+      ),
+    )).fold(
+            (failure) => {
+          // Failure -----------------------------------------------------------
+          inputState.add(ErrorState(StateRendererType.POPUP_ERROR_STATE, failure.message)),
+        },
+            (data) {
+          // Authentication ----------------------------------------------------
+          inputState.add(ContentState());
+              // Navigate to main screen after register ------------------------
+        });
   }
 
   // Output --------------------------------------------------------------------
