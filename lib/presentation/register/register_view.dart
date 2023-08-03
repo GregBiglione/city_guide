@@ -1,6 +1,8 @@
 import 'package:city_guide/app/di/di.dart';
+import 'package:city_guide/data/mapper/mapper.dart';
 import 'package:city_guide/presentation/register/register_view_model.dart';
 import 'package:city_guide/presentation/ressource/value_manager.dart';
+import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 
 import '../common/state_renderer/state_renderer_implementer.dart';
@@ -85,7 +87,7 @@ class _RegisterViewState extends State<RegisterView> {
 
   Widget _getContentWidget() => Container(
     padding: const EdgeInsets.only(
-      top: AppPadding.p100,
+      top: AppPadding.p60,
     ),
     color: ColorManager.white,
     child: SingleChildScrollView(
@@ -96,6 +98,10 @@ class _RegisterViewState extends State<RegisterView> {
             const Image(image: AssetImage(ImageAsset.splashLogo)),
             const SizedBox(height: AppSize.s28,),
             _usernameWidget(),
+            const SizedBox(height: AppSize.s28,),
+            _mobilePhoneRowWidget(),
+            const SizedBox(height: AppSize.s28,),
+            _emailWidget(),
             const SizedBox(height: AppSize.s28,),
             _passwordWidget(),
             const SizedBox(height: AppSize.s28,),
@@ -108,7 +114,7 @@ class _RegisterViewState extends State<RegisterView> {
   );
 
   //----------------------------------------------------------------------------
-  // Username widget
+  // Name widget
   //----------------------------------------------------------------------------
 
   Widget _usernameWidget() => Padding(
@@ -121,10 +127,88 @@ class _RegisterViewState extends State<RegisterView> {
       builder: (context, snapshot) {
         return TextFormField(
           controller: _usernameController,
+          keyboardType: TextInputType.text,
+          decoration: InputDecoration(
+            hintText: AppString.name,
+            labelText: AppString.name,
+            errorText: snapshot.data,
+          ),
+        );
+      },
+    ),
+  );
+
+  //----------------------------------------------------------------------------
+  // Country code & mobile phone widget
+  //----------------------------------------------------------------------------
+
+  Widget _mobilePhoneRowWidget() => Center(
+    child: Padding(
+      padding: const EdgeInsets.only(
+        left: AppPadding.p28,
+        right: AppPadding.p28,
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            flex: 1,
+            child: CountryCodePicker(
+              onChanged: (country) {
+                // Update View model with selected country ---------------------
+                _viewModel.setCountryCode(country.dialCode ?? EMPTY);
+              },
+              initialSelection: "+33",
+              showCountryOnly: true,
+              showOnlyCountryWhenClosed: true,
+              favorite: const ["+966", "+02", "+39"],
+            ),
+          ),
+          Expanded(
+            flex: 3,
+            child: _mobilePhoneWidget(),
+          ),
+        ],
+      ),
+    ),
+  );
+
+  //----------------------------------------------------------------------------
+  // Mobile phone widget
+  //----------------------------------------------------------------------------
+
+  Widget _mobilePhoneWidget() => StreamBuilder<String?>(
+    stream: _viewModel.outputErrorMobileNumber,
+    builder: (context, snapshot) {
+      return TextFormField(
+        controller: _mobileNumberController,
+        keyboardType: TextInputType.phone,
+        decoration: InputDecoration(
+          hintText: AppString.mobileNumber,
+          labelText: AppString.mobileNumber,
+          errorText: snapshot.data,
+        ),
+      );
+    },
+  );
+
+  //----------------------------------------------------------------------------
+  // Email widget
+  //----------------------------------------------------------------------------
+
+  Widget _emailWidget() => Padding(
+    padding: const EdgeInsets.only(
+      left: AppPadding.p28,
+      right: AppPadding.p28,
+    ),
+    child: StreamBuilder<String?>(
+      stream: _viewModel.outputErrorEmail,
+      builder: (context, snapshot) {
+        return TextFormField(
+          controller: _emailController,
           keyboardType: TextInputType.emailAddress,
           decoration: InputDecoration(
-            hintText: AppString.username,
-            labelText: AppString.username,
+            hintText: AppString.email,
+            labelText: AppString.email,
             errorText: snapshot.data,
           ),
         );

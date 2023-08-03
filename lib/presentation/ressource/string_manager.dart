@@ -28,6 +28,8 @@ class AppString {
   static const String resetText = "Didn't receive email ? Resend";
   static const String successTitle = "Success";
 
+  static const String name = "Name";
+  static const String mobileNumber = "Mobile number";
   static const String invalidUserName = "Invalid username";
   static const String invalidMobileNumber = "Invalid mobile number";
   static const String invalidEmail = "Invalid email";
