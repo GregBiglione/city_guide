@@ -4,7 +4,9 @@ import 'package:city_guide/presentation/ressource/value_manager.dart';
 import 'package:flutter/material.dart';
 
 import '../common/state_renderer/state_renderer_implementer.dart';
+import '../ressource/asset_manager.dart';
 import '../ressource/color_manager.dart';
+import '../ressource/string_manager.dart';
 
 class RegisterView extends StatefulWidget {
   const RegisterView({Key? key}) : super(key: key);
@@ -81,5 +83,107 @@ class _RegisterViewState extends State<RegisterView> {
     );
   }
 
-  Widget _getContentWidget() => Container();
+  Widget _getContentWidget() => Container(
+    padding: const EdgeInsets.only(
+      top: AppPadding.p100,
+    ),
+    color: ColorManager.white,
+    child: SingleChildScrollView(
+      child: Form(
+        key: _formKey,
+        child: Column(
+          children: [
+            const Image(image: AssetImage(ImageAsset.splashLogo)),
+            const SizedBox(height: AppSize.s28,),
+            _usernameWidget(),
+            const SizedBox(height: AppSize.s28,),
+            _passwordWidget(),
+            const SizedBox(height: AppSize.s28,),
+            //_registerButtonWidget(),
+            //_forgetPasswordAndRegister(),
+          ],
+        ),
+      ),
+    ),
+  );
+
+  //----------------------------------------------------------------------------
+  // Username widget
+  //----------------------------------------------------------------------------
+
+  Widget _usernameWidget() => Padding(
+    padding: const EdgeInsets.only(
+      left: AppPadding.p28,
+      right: AppPadding.p28,
+    ),
+    child: StreamBuilder<String?>(
+      stream: _viewModel.outputErrorUsername,
+      builder: (context, snapshot) {
+        return TextFormField(
+          controller: _usernameController,
+          keyboardType: TextInputType.emailAddress,
+          decoration: InputDecoration(
+            hintText: AppString.username,
+            labelText: AppString.username,
+            errorText: snapshot.data,
+          ),
+        );
+      },
+    ),
+  );
+
+  //----------------------------------------------------------------------------
+  // Password widget
+  //----------------------------------------------------------------------------
+
+  Widget _passwordWidget() => Padding(
+    padding: const EdgeInsets.only(
+      left: AppPadding.p28,
+      right: AppPadding.p28,
+    ),
+    child: StreamBuilder<String?>(
+      stream: _viewModel.outputErrorPassword,
+      builder: (context, snapshot) {
+        return TextFormField(
+          controller: _passwordController,
+          keyboardType: TextInputType.visiblePassword,
+          decoration: InputDecoration(
+            hintText: AppString.password,
+            labelText: AppString.password,
+            errorText: snapshot.data,
+          ),
+        );
+      },
+    ),
+  );
+
+  //----------------------------------------------------------------------------
+  // Register button widget
+  //----------------------------------------------------------------------------
+
+  /*Widget _registerButtonWidget() => Padding(
+    padding: const EdgeInsets.only(
+      left: AppPadding.p28,
+      right: AppPadding.p28,
+    ),
+    child: StreamBuilder<bool>(
+      stream: _viewModel.outputIsAllInputValid,
+      builder: (context, snapshot) {
+        return SizedBox(
+          width: double.infinity,
+          height: AppSize.s40,
+          child: ElevatedButton(
+            onPressed: (snapshot.data ?? false)
+                ? () {
+              _viewModel.register();
+            }
+                : null,
+            child: const Text(
+              AppString.register,
+            ),
+          ),
+        );
+      },
+    ),
+  );*/
 }
