@@ -93,7 +93,7 @@ class _RegisterViewState extends State<RegisterView> {
 
   Widget _getContentWidget() => Container(
     padding: const EdgeInsets.only(
-      top: AppPadding.p60,
+      top: AppPadding.p30,
     ),
     color: ColorManager.white,
     child: SingleChildScrollView(
@@ -102,17 +102,17 @@ class _RegisterViewState extends State<RegisterView> {
         child: Column(
           children: [
             const Image(image: AssetImage(ImageAsset.splashLogo)),
-            const SizedBox(height: AppSize.s28,),
+            const SizedBox(height: AppSize.s12,),
             _usernameWidget(),
-            const SizedBox(height: AppSize.s28,),
+            const SizedBox(height: AppSize.s12,),
             _mobilePhoneRowWidget(),
-            const SizedBox(height: AppSize.s28,),
+            const SizedBox(height: AppSize.s12,),
             _emailWidget(),
-            const SizedBox(height: AppSize.s28,),
+            const SizedBox(height: AppSize.s12,),
             _passwordWidget(),
-            const SizedBox(height: AppSize.s28,),
+            const SizedBox(height: AppSize.s12,),
             _profilePictureWidget(),
-            const SizedBox(height: AppSize.s28,),
+            const SizedBox(height: AppSize.s12,),
             _registerButtonWidget(),
             _alreadyHaveAccountWidget(),
           ],
@@ -167,6 +167,7 @@ class _RegisterViewState extends State<RegisterView> {
               },
               initialSelection: "+33",
               showCountryOnly: true,
+              hideMainText: true,
               showOnlyCountryWhenClosed: true,
               favorite: const ["+966", "+02", "+39"],
             ),
@@ -259,10 +260,12 @@ class _RegisterViewState extends State<RegisterView> {
       right: AppPadding.p28,
     ),
     child: Container(
+      height: AppSize.s40,
       decoration: BoxDecoration(
         border: Border.all(
-          color: ColorManager.lightGrey,
+          color: ColorManager.grey1,
         ),
+        borderRadius: BorderRadius.circular(AppSize.s6),
       ),
       child: GestureDetector(
         child: _getMediaWidget(),
