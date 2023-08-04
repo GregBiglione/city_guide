@@ -44,8 +44,8 @@ class _MainViewState extends State<MainView> {
         decoration: BoxDecoration(
           boxShadow: [
             BoxShadow(
-              color: ColorManager.black,
-              spreadRadius: AppSize.s1_5,
+              color: ColorManager.lightGrey,
+              spreadRadius: AppSize.s1,
             ),
           ],
         ),
@@ -54,30 +54,30 @@ class _MainViewState extends State<MainView> {
           selectedItemColor: ColorManager.primary,
           unselectedItemColor: ColorManager.grey,
           onTap: switchIndex,
-          items: [
+          items: const [
             BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.home,
-                  color: ColorManager.white,
-                ),
+              icon: Icon(
+                Icons.home,
+              ),
+              label: AppString.home
             ),
             BottomNavigationBarItem(
               icon: Icon(
                 Icons.search,
-                color: ColorManager.white,
               ),
+                label: AppString.search
             ),
             BottomNavigationBarItem(
               icon: Icon(
                 Icons.notifications,
-                color: ColorManager.white,
               ),
+              label: AppString.notification
             ),
             BottomNavigationBarItem(
               icon: Icon(
                 Icons.settings,
-                color: ColorManager.white,
               ),
+              label: AppString.setting
             ),
           ],
         ),
