@@ -39,4 +39,9 @@ class AppString {
   static const String photoCamera = "Photo from camera";
   static const String register = "Register";
   static const String haveAccount = "Already have an account ? Login";
+
+  static const String home = "Home";
+  static const String notification = "Notification";
+  static const String setting = "Setting";
+  static const String search = "Search";
 }
