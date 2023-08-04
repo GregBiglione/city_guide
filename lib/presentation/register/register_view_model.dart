@@ -23,8 +23,9 @@ class RegisterViewModel extends BaseViewModel with RegisterViewModelInput,
       .broadcast();
   final StreamController _profilePictureStreamController = StreamController<File>
       .broadcast();
-  final StreamController _isAllInputValidStreamController = StreamController<String>
+  final StreamController _isAllInputValidStreamController = StreamController<void>
       .broadcast();
+  final StreamController isUserRegisteredSuccessfullyStreamController = StreamController<bool>();
   final RegisterUseCase _registerUseCase;
   Register registerObject = const Register("", "", "", "", "", "");
 
@@ -45,6 +46,7 @@ class RegisterViewModel extends BaseViewModel with RegisterViewModelInput,
     _passwordStreamController.close();
     _profilePictureStreamController.close();
     _isAllInputValidStreamController.close();
+    isUserRegisteredSuccessfullyStreamController.close();
     super.dispose();
   }
 
@@ -110,7 +112,7 @@ class RegisterViewModel extends BaseViewModel with RegisterViewModelInput,
   @override
   setEmail(String email) {
     inputEmail.add(email);
-    if(_isUsernameValid(email)) {
+    if(isEmailValid(email)) {
       // Update register object with email value -------------------------------
       registerObject = registerObject.copyWith(email: email);
     }
@@ -169,7 +171,8 @@ class RegisterViewModel extends BaseViewModel with RegisterViewModelInput,
             (data) {
           // Authentication ----------------------------------------------------
           inputState.add(ContentState());
-              // Navigate to main screen after register ------------------------
+          // Navigate to main screen after register ----------------------------
+          isUserRegisteredSuccessfullyStreamController.add(true);
         });
   }
 
@@ -224,7 +227,7 @@ class RegisterViewModel extends BaseViewModel with RegisterViewModelInput,
 
   // Profile picture -----------------------------------------------------------
   @override
-  Stream<File> get outputIsProfilePictureValid => _profilePictureStreamController
+  Stream<File?> get outputIsProfilePictureValid => _profilePictureStreamController
       .stream.map((file) => file);
 
   // All inputs valid ----------------------------------------------------------
@@ -290,6 +293,6 @@ abstract class RegisterViewModelOutput {
   Stream<String?> get outputErrorEmail;
   Stream<bool> get outputIsPasswordValid;
   Stream<String?> get outputErrorPassword;
-  Stream<File> get outputIsProfilePictureValid;
+  Stream<File?> get outputIsProfilePictureValid;
   Stream<bool> get outputIsAllInputValid;
 }
