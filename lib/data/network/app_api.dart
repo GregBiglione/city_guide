@@ -1,4 +1,5 @@
 import 'package:city_guide/app/constant.dart';
+import 'package:city_guide/data/response/home_response.dart';
 import 'package:dio/dio.dart';
 import 'package:retrofit/http.dart';
 
@@ -33,4 +34,7 @@ abstract class AppServiceClient {
       @Field("mobileNumber") String mobileNumber,
       @Field("profilePicture") String profilePicture,
   );
+
+  @GET("/home")
+  Future<HomeResponse> getHome();
 }
