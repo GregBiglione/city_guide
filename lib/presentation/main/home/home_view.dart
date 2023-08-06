@@ -1,3 +1,4 @@
+import 'package:city_guide/domain/model/service.dart';
 import 'package:city_guide/presentation/common/state_renderer/state_renderer_implementer.dart';
 import 'package:city_guide/presentation/main/home/home_view_model.dart';
 import 'package:city_guide/presentation/ressource/color_manager.dart';
@@ -58,9 +59,9 @@ class _HomeViewState extends State<HomeView> {
     children: [
       _getBannerCarousel(),
       _getSection(AppString.services),
-      _getService(),
+      _getServices(),
       _getSection(AppString.stores),
-      _getStore(),
+      _getStores(),
     ],
   );
 
@@ -121,13 +122,78 @@ class _HomeViewState extends State<HomeView> {
   // Service widget
   //----------------------------------------------------------------------------
 
-  Widget _getService() => Center();
+  Widget _getServices() => StreamBuilder<List<Service>>(
+      stream: _viewModel.outputService,
+      builder: (context, snapshot) {
+        return _getService(snapshot.data);
+      },
+  );
+
+  Widget _getService(List<Service>? services) {
+    if(services != null) {
+      return Padding(
+        padding: const EdgeInsets.only(
+          left: AppPadding.p12,
+          right: AppPadding.p12,
+        ),
+        child: Container(
+          height: AppSize.s140,
+          margin: const EdgeInsets.symmetric(
+            vertical: AppMargin.m12,
+          ),
+          child: ListView(
+            scrollDirection: Axis.horizontal,
+            children: services.map((service) => Card(
+              elevation: AppSize.s4,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(
+                  AppSize.s12,
+                ),
+                side: BorderSide(
+                  color: ColorManager.white,
+                  width: AppSize.s1_5,
+                ),
+              ),
+              child: Column(
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(
+                      AppSize.s12,
+                    ),
+                    child: Image.network(
+                      service.image,
+                      fit: BoxFit.cover,
+                      width: AppSize.s130,
+                      height: AppSize.s130,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: AppPadding.p8),
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: Text(
+                        service.title,
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            )).toList(),
+          ),
+        ),
+      );
+    }
+    else {
+      return Container();
+    }
+  }
 
   //----------------------------------------------------------------------------
   // Store widget
   //----------------------------------------------------------------------------
 
-  Widget _getStore() => Center();
+  Widget _getStores() => Center();
 
   //----------------------------------------------------------------------------
   // Section widget
