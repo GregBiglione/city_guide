@@ -1,4 +1,4 @@
-import 'package:city_guide/presentation/main/home_view.dart';
+import 'package:city_guide/presentation/main/home/home_view.dart';
 import 'package:city_guide/presentation/main/notification_view.dart';
 import 'package:city_guide/presentation/main/search_view.dart';
 import 'package:city_guide/presentation/main/setting_view.dart';
