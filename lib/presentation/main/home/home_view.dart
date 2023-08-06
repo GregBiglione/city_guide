@@ -1,5 +1,7 @@
+import 'package:city_guide/presentation/common/state_renderer/state_renderer_implementer.dart';
 import 'package:city_guide/presentation/main/home/home_view_model.dart';
 import 'package:city_guide/presentation/ressource/string_manager.dart';
+import 'package:city_guide/presentation/ressource/value_manager.dart';
 import 'package:flutter/material.dart';
 
 import '../../../app/di/di.dart';
@@ -32,8 +34,65 @@ class _HomeViewState extends State<HomeView> {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text(AppString.home),
+    return SingleChildScrollView(
+        child: StreamBuilder<FlowState>(
+          stream: _viewModel.outputState,
+            builder: (context, snapshot) {
+              return snapshot.data?.getWidgetScreen(
+                context,
+                _getContentWidget(),
+                () {
+                  _viewModel.start();
+                }
+              ) ?? _getContentWidget();
+            },
+        ),
     );
   }
+
+  Widget _getContentWidget() => Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      _getBannerCarousel(),
+      _getSection(AppString.services),
+      _getService(),
+      _getSection(AppString.stores),
+      _getStore(),
+    ],
+  );
+
+  //----------------------------------------------------------------------------
+  // Banner widget
+  //----------------------------------------------------------------------------
+
+  Widget _getBannerCarousel() => Center();
+
+  //----------------------------------------------------------------------------
+  // Service widget
+  //----------------------------------------------------------------------------
+
+  Widget _getService() => Center();
+
+  //----------------------------------------------------------------------------
+  // Store widget
+  //----------------------------------------------------------------------------
+
+  Widget _getStore() => Center();
+
+  //----------------------------------------------------------------------------
+  // Section widget
+  //----------------------------------------------------------------------------
+
+  Widget _getSection(String title) => Padding(
+    padding: const EdgeInsets.only(
+      top: AppPadding.p12,
+      right: AppPadding.p12,
+      bottom: AppPadding.p2,
+      left: AppPadding.p12,
+    ),
+    child: Text(
+      title,
+      style: Theme.of(context).textTheme.headlineMedium,
+    ),
+  );
 }
