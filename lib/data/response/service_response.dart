@@ -1,4 +1,3 @@
-import 'package:city_guide/data/response/response.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'service_response.g.dart';
