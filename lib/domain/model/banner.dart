@@ -1,8 +1,8 @@
-class Banner {
+class BannerAd {
   int id;
   String link;
   String title;
   String image;
 
-  Banner(this.id, this.link, this.title, this.image);
+  BannerAd(this.id, this.link, this.title, this.image);
 }

@@ -12,7 +12,7 @@ import '../../base/base_view_model.dart';
 import '../../common/state_renderer/state_renderer_implementer.dart';
 
 class HomeViewModel extends BaseViewModel with HomeViewModelInput, HomeViewModelOutput {
-  final StreamController _bannerStreamController = BehaviorSubject<List<Banner>>();
+  final StreamController _bannerStreamController = BehaviorSubject<List<BannerAd>>();
   final StreamController _serviceStreamController = BehaviorSubject<List<Service>>();
   final StreamController _storeStreamController = BehaviorSubject<List<Store>>();
 
@@ -46,7 +46,7 @@ class HomeViewModel extends BaseViewModel with HomeViewModelInput, HomeViewModel
 
   // Output --------------------------------------------------------------------
   @override
-  Stream<List<Banner>> get outputBanner => _bannerStreamController.stream
+  Stream<List<BannerAd>> get outputBanner => _bannerStreamController.stream
       .map((banner) => banner);
 
   @override
@@ -89,7 +89,7 @@ abstract class HomeViewModelInput {
 // Output means data/result that will be sent from view to view ----------------
 abstract class HomeViewModelOutput {
   // 3 streams for validation --------------------------------------------------
-  Stream<List<Banner>> get outputBanner;
+  Stream<List<BannerAd>> get outputBanner;
   Stream<List<Service>> get outputService;
   Stream<List<Store>> get outputStore;
 }

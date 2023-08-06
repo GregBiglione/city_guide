@@ -5,7 +5,7 @@ import 'package:city_guide/domain/model/store.dart';
 class HomeData {
   List<Service> services;
   List<Store> stores;
-  List<Banner> banners;
+  List<BannerAd> banners;
 
   HomeData(this.services, this.stores, this.banners);
 }

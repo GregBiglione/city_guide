@@ -1,10 +1,13 @@
 import 'package:city_guide/presentation/common/state_renderer/state_renderer_implementer.dart';
 import 'package:city_guide/presentation/main/home/home_view_model.dart';
+import 'package:city_guide/presentation/ressource/color_manager.dart';
 import 'package:city_guide/presentation/ressource/string_manager.dart';
 import 'package:city_guide/presentation/ressource/value_manager.dart';
 import 'package:flutter/material.dart';
 
 import '../../../app/di/di.dart';
+import '../../../domain/model/banner.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -65,7 +68,54 @@ class _HomeViewState extends State<HomeView> {
   // Banner widget
   //----------------------------------------------------------------------------
 
-  Widget _getBannerCarousel() => Center();
+  Widget _getBannerCarousel() => StreamBuilder<List<BannerAd>>(
+    stream: _viewModel.outputBanner,
+    builder: (context, snapshot) {
+      return _getBanner(snapshot.data);
+    },
+  );
+
+  Widget _getBanner(List<BannerAd>? banners) {
+    if(banners != null) {
+      return CarouselSlider(
+        items: banners.map(
+                (banner) => SizedBox(
+                  width: double.infinity,
+                  child: Card(
+                    elevation: AppSize.s1_5,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(
+                        AppSize.s12,
+                      ),
+                      side: BorderSide(
+                        color: ColorManager.white,
+                        width: AppSize.s1_5,
+                      )
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(
+                        AppSize.s12,
+                      ),
+                      child: Image.network(
+                        banner.image,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                )
+        ).toList(),
+        options: CarouselOptions(
+          height: AppSize.s190,
+          autoPlay: true,
+          enableInfiniteScroll: true,
+          enlargeCenterPage: true,
+        ),
+      );
+    }
+    else {
+      return Container();
+    }
+  }
 
   //----------------------------------------------------------------------------
   // Service widget
