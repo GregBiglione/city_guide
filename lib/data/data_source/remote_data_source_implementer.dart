@@ -2,6 +2,7 @@ import 'package:city_guide/data/data_source/remote_data_source.dart';
 import 'package:city_guide/data/request/login_request.dart';
 import 'package:city_guide/data/request/register_request.dart';
 import 'package:city_guide/data/response/forgot_password_response.dart';
+import 'package:city_guide/data/response/home_response.dart';
 import 'package:city_guide/data/response/response.dart';
 
 import '../network/app_api.dart';
@@ -36,5 +37,10 @@ class RemoteDataSourceImplementer implements RemoteDataSource {
       registerRequest.mobileNumber,
       "",
     );
+  }
+
+  @override
+  Future<HomeResponse> getHome() async {
+    return await _appServiceClient.getHome();
   }
 }
