@@ -5,6 +5,7 @@ import 'package:city_guide/data/network/app_api.dart';
 import 'package:city_guide/data/network/dio_factory.dart';
 import 'package:city_guide/data/repository/repository_implementer.dart';
 import 'package:city_guide/domain/repository/repository.dart';
+import 'package:city_guide/domain/usecase/home_usecase.dart';
 import 'package:city_guide/domain/usecase/login_usecase.dart';
 import 'package:city_guide/domain/usecase/register_use_case.dart';
 import 'package:city_guide/presentation/forgot_password/forgot_password_view_model.dart';
@@ -18,6 +19,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../data/network/netwok_info_implementer.dart';
 import '../../data/network/network_info.dart';
 import '../../domain/usecase/forgot_password_usecase.dart';
+import '../../presentation/main/home/home_view_model.dart';
 
 final instance = GetIt.instance;
 
@@ -81,5 +83,14 @@ initRegisterModule() {
     instance.registerFactory<RegisterViewModel>(() => RegisterViewModel(instance()));
     // Register image picker ---------------------------------------------------
     instance.registerFactory<ImagePicker>(() => ImagePicker());
+  }
+}
+
+initHomeModule() {
+  if(!GetIt.I.isRegistered<HomeUseCase>()) {
+    // Home use case instance --------------------------------------------------
+    instance.registerFactory<HomeUseCase>(() => HomeUseCase(instance()));
+    // Home view model instance ------------------------------------------------
+    instance.registerFactory<HomeViewModel>(() => HomeViewModel(instance()));
   }
 }
