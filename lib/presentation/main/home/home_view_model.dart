@@ -1,12 +1,15 @@
 import 'dart:async';
+import 'dart:ffi';
 
 import 'package:city_guide/domain/model/banner.dart';
 import 'package:city_guide/domain/model/service.dart';
 import 'package:city_guide/domain/usecase/home_usecase.dart';
+import 'package:city_guide/presentation/common/state_renderer/state_renderer.dart';
 import 'package:rxdart/rxdart.dart';
 
 import '../../../domain/model/store.dart';
 import '../../base/base_view_model.dart';
+import '../../common/state_renderer/state_renderer_implementer.dart';
 
 class HomeViewModel extends BaseViewModel with HomeViewModelInput, HomeViewModelOutput {
   final StreamController _bannerStreamController = BehaviorSubject<List<Banner>>();
@@ -20,7 +23,8 @@ class HomeViewModel extends BaseViewModel with HomeViewModelInput, HomeViewModel
   // Input ---------------------------------------------------------------------
   @override
   void start() {
-    // TODO: implement start
+    // View tells state to show content of the screen --------------------------
+    _getHome();
   }
 
   @override
@@ -52,6 +56,26 @@ class HomeViewModel extends BaseViewModel with HomeViewModelInput, HomeViewModel
   @override
   Stream<List<Store>> get outputStore => _storeStreamController.stream
       .map((store) => store);
+
+  // Private function ----------------------------------------------------------
+  _getHome() async {
+    inputState.add(LoadingState(stateRendererType: StateRendererType.FULL_SCREEN_LOADING_STATE));
+
+    (await _homeUseCase.execute(Void)).fold(
+            (failure) {
+              // Failure -------------------------------------------------------
+              inputState.add(ErrorState(StateRendererType.FULL_SCREEN_ERROR_STATE, failure.message));
+            },
+            (home) {
+              // Home ----------------------------------------------------------
+              inputState.add(ContentState());
+              // Data inside home ----------------------------------------------
+              inputBanner.add(home.data.banners);
+              inputService.add(home.data.services);
+              inputStore.add(home.data.stores);
+            },
+    );
+  }
 }
 
 // Input means order that view model will receive from view --------------------
