@@ -141,9 +141,6 @@ class RepositoryImplementer implements Repository {
       // Get data from cache ---------------------------------------------------
       final response = await _localDataSource.getHome();
 
-      // Save response in local data source ------------------------------------
-      _localDataSource.saveHomeToCache(response);
-
       return Right(response.toDomain());
     } catch (cacheError) {
       // Cache error get data from API -----------------------------------------
@@ -154,6 +151,9 @@ class RepositoryImplementer implements Repository {
 
           if(response.status == ApiInternalStatus.SUCCESS) {
             // Ok --------------------------------------------------------------
+            // Save response in local data source ------------------------------------
+            _localDataSource.saveHomeToCache(response);
+
             return Right(response.toDomain());
           }
           else {
