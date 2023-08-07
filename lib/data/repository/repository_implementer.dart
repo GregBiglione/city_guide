@@ -11,6 +11,7 @@ import 'package:city_guide/data/request/login_request.dart';
 import 'package:city_guide/data/request/register_request.dart';
 
 import 'package:city_guide/domain/model/authentication.dart';
+import 'package:city_guide/domain/model/detail_store.dart';
 import 'package:city_guide/domain/model/home.dart';
 
 import 'package:dartz/dartz.dart';
@@ -173,6 +174,41 @@ class RepositoryImplementer implements Repository {
         // Connection error ----------------------------------------------------
         return Left(ErrorDataSource.NO_INTERNET_CONNECTION.getFailure());
       }
+    }
+  }
+
+  //----------------------------------------------------------------------------
+  // Store detail view
+  //----------------------------------------------------------------------------
+
+  @override
+  Future<Either<Failure, StoreDetail>> getStoreDetail() async {
+    if(await _networkInfo.isConnected) {
+      try {
+        // It's safe to call the API -------------------------------------------
+        final response = await _remoteDataSource.getStoreDetail();
+
+        if(response.status == ApiInternalStatus.SUCCESS) {
+          // Ok ----------------------------------------------------------------
+          return Right(response.toDomain());
+        }
+        else {
+          // Business logic error ----------------------------------------------
+          return Left(
+            Failure(
+                response.status ?? ResponseCode.DEFAULT,
+                response.message ?? ResponseMessage.DEFAULT
+            ),
+          );
+        }
+
+      } catch (e) {
+        return Left(ErrorHandler.handle(e).failure);
+      }
+    }
+    else {
+      // Connection error ------------------------------------------------------
+      return Left(ErrorDataSource.NO_INTERNET_CONNECTION.getFailure());
     }
   }
 }
