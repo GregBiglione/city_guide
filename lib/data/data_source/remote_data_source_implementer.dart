@@ -4,6 +4,7 @@ import 'package:city_guide/data/request/register_request.dart';
 import 'package:city_guide/data/response/forgot_password_response.dart';
 import 'package:city_guide/data/response/home_response.dart';
 import 'package:city_guide/data/response/response.dart';
+import 'package:city_guide/data/response/store_detail_response.dart';
 
 import '../network/app_api.dart';
 
@@ -42,5 +43,10 @@ class RemoteDataSourceImplementer implements RemoteDataSource {
   @override
   Future<HomeResponse> getHome() async {
     return await _appServiceClient.getHome();
+  }
+
+  @override
+  Future<StoreDetailResponse> getStoreDetail() async {
+    return await _appServiceClient.getStoreDetail();
   }
 }
