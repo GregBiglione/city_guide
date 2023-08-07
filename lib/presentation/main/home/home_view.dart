@@ -1,4 +1,5 @@
 import 'package:city_guide/domain/model/service.dart';
+import 'package:city_guide/domain/model/store.dart';
 import 'package:city_guide/presentation/common/state_renderer/state_renderer_implementer.dart';
 import 'package:city_guide/presentation/main/home/home_view_model.dart';
 import 'package:city_guide/presentation/ressource/color_manager.dart';
@@ -9,6 +10,8 @@ import 'package:flutter/material.dart';
 import '../../../app/di/di.dart';
 import '../../../domain/model/banner.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+
+import '../../ressource/route_manager.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -193,7 +196,54 @@ class _HomeViewState extends State<HomeView> {
   // Store widget
   //----------------------------------------------------------------------------
 
-  Widget _getStores() => Center();
+  Widget _getStores() => StreamBuilder<List<Store>>(
+    stream: _viewModel.outputStore,
+    builder: (context, snapshot) {
+      return _getStore(snapshot.data);
+    },
+  );
+
+  Widget _getStore(List<Store>? stores) {
+    if(stores != null) {
+      return Padding(
+        padding: const EdgeInsets.only(
+          left: AppPadding.p12,
+          right: AppPadding.p12,
+        ),
+        child: Flex(
+          direction: Axis.vertical,
+          children: [
+            GridView.count(
+              crossAxisSpacing: AppSize.s8,
+              mainAxisSpacing: AppSize.s8,
+              physics: const ScrollPhysics(),
+              shrinkWrap: true,
+              crossAxisCount: 2,
+              children: List.generate(
+                stores.length, (index) {
+                  return InkWell(
+                    onTap: () {
+                      Navigator.of(context).pushNamed(Routes.storeDetailRoute);
+                    },
+                    child: Card(
+                      elevation: AppSize.s4,
+                      child: Image.network(
+                        stores[index].image,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+    else {
+      return Container();
+    }
+  }
 
   //----------------------------------------------------------------------------
   // Section widget
