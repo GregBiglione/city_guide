@@ -16,14 +16,17 @@ import 'package:city_guide/domain/model/home.dart';
 import 'package:dartz/dartz.dart';
 
 import '../../domain/repository/repository.dart';
+import '../data_source/local_data_source.dart';
 import '../data_source/remote_data_source.dart';
 import '../network/network_info.dart';
 
 class RepositoryImplementer implements Repository {
   final RemoteDataSource _remoteDataSource;
+  final LocalDataSource _localDataSource;
   final NetworkInfo _networkInfo;
 
-  RepositoryImplementer(this._remoteDataSource, this._networkInfo);
+  RepositoryImplementer(this._remoteDataSource, this._localDataSource,
+      this._networkInfo);
 
   //----------------------------------------------------------------------------
   // Login
@@ -134,31 +137,41 @@ class RepositoryImplementer implements Repository {
 
   @override
   Future<Either<Failure, Home>> getHome() async {
-    if(await _networkInfo.isConnected) {
-      try {
-        // It's safe to call the API -------------------------------------------
-        final response = await _remoteDataSource.getHome();
+    try {
+      // Get data from cache ---------------------------------------------------
+      final response = await _localDataSource.getHome();
 
-        if(response.status == ApiInternalStatus.SUCCESS) {
-          // Ok ------------------------------------------------------------------
-          return Right(response.toDomain());
+      // Save response in local data source ------------------------------------
+      _localDataSource.saveHomeToCache(response);
+      return Right(response.toDomain());
+    } catch (cacheError) {
+      // Cache error get data from API -----------------------------------------
+      if(await _networkInfo.isConnected) {
+        try {
+          // It's safe to call the API -----------------------------------------
+          final response = await _remoteDataSource.getHome();
+
+          if(response.status == ApiInternalStatus.SUCCESS) {
+            // Ok --------------------------------------------------------------
+            return Right(response.toDomain());
+          }
+          else {
+            // Business logic error --------------------------------------------
+            return Left(
+              Failure(
+                  response.status ?? ApiInternalStatus.FAILURE,
+                  response.message ?? ResponseMessage.DEFAULT
+              ),
+            );
+          }
+        } catch (e) {
+          return Left(ErrorHandler.handle(e).failure);
         }
-        else {
-          // Business logic error ----------------------------------------------
-          return Left(
-            Failure(
-                response.status ?? ApiInternalStatus.FAILURE,
-                response.message ?? ResponseMessage.DEFAULT
-            ),
-          );
-        }
-      } catch (e) {
-        return Left(ErrorHandler.handle(e).failure);
       }
-    }
-    else {
-      // Connection error ------------------------------------------------------
-      return Left(ErrorDataSource.NO_INTERNET_CONNECTION.getFailure());
+      else {
+        // Connection error ----------------------------------------------------
+        return Left(ErrorDataSource.NO_INTERNET_CONNECTION.getFailure());
+      }
     }
   }
 }
