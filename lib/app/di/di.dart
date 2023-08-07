@@ -1,4 +1,5 @@
 import 'package:city_guide/app/app_preferences.dart';
+import 'package:city_guide/data/data_source/local_data_source.dart';
 import 'package:city_guide/data/data_source/remote_data_source.dart';
 import 'package:city_guide/data/data_source/remote_data_source_implementer.dart';
 import 'package:city_guide/data/network/app_api.dart';
@@ -16,6 +17,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../data/data_source/local_data_source_implementer.dart';
 import '../../data/network/netwok_info_implementer.dart';
 import '../../data/network/network_info.dart';
 import '../../domain/usecase/forgot_password_usecase.dart';
@@ -49,6 +51,10 @@ Future<void> initAppModule() async {
   // Remote data source instance -----------------------------------------------
   instance.registerLazySingleton<RemoteDataSource>(() =>
       RemoteDataSourceImplementer(instance()));
+
+  // Local data source instance ------------------------------------------------
+  instance.registerLazySingleton<LocalDataSource>(() =>
+      LocalDataSourceImplementer());
 
   // Repository instance -------------------------------------------------------
   instance.registerLazySingleton<Repository>(() =>
