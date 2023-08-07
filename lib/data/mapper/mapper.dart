@@ -9,11 +9,13 @@ import '../../domain/model/authentication.dart';
 import '../../domain/model/banner.dart';
 import '../../domain/model/contacts.dart';
 import '../../domain/model/customer.dart';
+import '../../domain/model/detail_store.dart';
 import '../../domain/model/home.dart';
 import '../../domain/model/store.dart';
 import '../response/home_response.dart';
 import '../response/response.dart';
 import '../response/service_response.dart';
+import '../response/store_detail_response.dart';
 
 const EMPTY = "";
 const ZERO = 0;
@@ -102,5 +104,18 @@ extension HomeResponseMapper on HomeResponse? {
     var data = HomeData(mappedServices, mappedStores, mappedBanners);
 
     return Home(data);
+  }
+}
+
+extension StoreDetailResponseMapper on StoreDetailResponse? {
+  StoreDetail toDomain() {
+    return StoreDetail(
+      this?.id.orZero() ?? ZERO,
+      this?.image.orEmpty() ?? EMPTY,
+      this?.title.orEmpty() ?? EMPTY,
+      this?.details.orEmpty() ?? EMPTY,
+      this?.services.orEmpty() ?? EMPTY,
+      this?.about.orEmpty() ?? EMPTY,
+    );
   }
 }
