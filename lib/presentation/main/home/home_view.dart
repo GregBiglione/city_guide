@@ -1,3 +1,4 @@
+import 'package:city_guide/domain/model/home_data.dart';
 import 'package:city_guide/domain/model/service.dart';
 import 'package:city_guide/domain/model/store.dart';
 import 'package:city_guide/presentation/common/state_renderer/state_renderer_implementer.dart';
@@ -41,45 +42,45 @@ class _HomeViewState extends State<HomeView> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-        child: StreamBuilder<FlowState>(
-          stream: _viewModel.outputState,
-            builder: (context, snapshot) {
-              return snapshot.data?.getWidgetScreen(
-                context,
-                _getContentWidget(),
-                () {
-                  _viewModel.start();
-                }
-              ) ?? _getContentWidget();
-            },
-        ),
+    return Center(
+      child: SingleChildScrollView(
+          child: StreamBuilder<FlowState>(
+            stream: _viewModel.outputState,
+              builder: (context, snapshot) {
+                return snapshot.data?.getWidgetScreen(
+                  context,
+                  _getContentWidget(),
+                  () {
+                    _viewModel.start();
+                  }
+                ) ?? _getContentWidget();
+              },
+          ),
+      ),
     );
   }
 
-  Widget _getContentWidget() => Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      _getBannerCarousel(),
-      _getSection(AppString.services),
-      _getServices(),
-      _getSection(AppString.stores),
-      _getStores(),
-    ],
+  Widget _getContentWidget() => StreamBuilder<HomeData>(
+    stream: _viewModel.outputHomeData,
+    builder: (context, snapshot) {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _getCarouselBanner(snapshot.data?.banners),
+          _getSection(AppString.services),
+          _getService(snapshot.data?.services),
+          _getSection(AppString.stores),
+          _getStore(snapshot.data?.stores),
+        ],
+      );
+    },
   );
 
   //----------------------------------------------------------------------------
   // Banner widget
   //----------------------------------------------------------------------------
 
-  Widget _getBannerCarousel() => StreamBuilder<List<BannerAd>>(
-    stream: _viewModel.outputBanner,
-    builder: (context, snapshot) {
-      return _getBanner(snapshot.data);
-    },
-  );
-
-  Widget _getBanner(List<BannerAd>? banners) {
+  Widget _getCarouselBanner(List<BannerAd>? banners) {
     if(banners != null) {
       return CarouselSlider(
         items: banners.map(
@@ -125,13 +126,6 @@ class _HomeViewState extends State<HomeView> {
   // Service widget
   //----------------------------------------------------------------------------
 
-  Widget _getServices() => StreamBuilder<List<Service>>(
-      stream: _viewModel.outputService,
-      builder: (context, snapshot) {
-        return _getService(snapshot.data);
-      },
-  );
-
   Widget _getService(List<Service>? services) {
     if(services != null) {
       return Padding(
@@ -166,8 +160,8 @@ class _HomeViewState extends State<HomeView> {
                     child: Image.network(
                       service.image,
                       fit: BoxFit.cover,
-                      width: AppSize.s130,
-                      height: AppSize.s130,
+                      width: AppSize.s100,
+                      height: AppSize.s100,
                     ),
                   ),
                   Padding(
@@ -195,13 +189,6 @@ class _HomeViewState extends State<HomeView> {
   //----------------------------------------------------------------------------
   // Store widget
   //----------------------------------------------------------------------------
-
-  Widget _getStores() => StreamBuilder<List<Store>>(
-    stream: _viewModel.outputStore,
-    builder: (context, snapshot) {
-      return _getStore(snapshot.data);
-    },
-  );
 
   Widget _getStore(List<Store>? stores) {
     if(stores != null) {
