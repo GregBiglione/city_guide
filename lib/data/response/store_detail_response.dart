@@ -5,20 +5,20 @@ part 'store_detail_response.g.dart';
 
 @JsonSerializable()
 class StoreDetailResponse extends BaseResponse {
-  @JsonKey(name: "image")
-  String? image;
   @JsonKey(name: "id")
   int? id;
+  @JsonKey(name: "image")
+  String? image;
   @JsonKey(name: "title")
-  int? title;
+  String? title;
   @JsonKey(name: "details")
-  int? details;
+  String? details;
   @JsonKey(name: "services")
-  int? services;
+  String? services;
   @JsonKey(name: "about")
-  int? about;
+  String? about;
 
-  StoreDetailResponse(this.image, this.id, this.title, this.details, 
+  StoreDetailResponse(this.id, this.image, this.title, this.details,
       this.services, this.about);
   
   factory StoreDetailResponse.fromJson(Map<String, dynamic> json) =>
