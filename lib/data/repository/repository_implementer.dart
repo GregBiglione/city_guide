@@ -143,6 +143,7 @@ class RepositoryImplementer implements Repository {
 
       // Save response in local data source ------------------------------------
       _localDataSource.saveHomeToCache(response);
+
       return Right(response.toDomain());
     } catch (cacheError) {
       // Cache error get data from API -----------------------------------------
