@@ -31,4 +31,14 @@ class LocalDataSourceImplementer implements LocalDataSource {
   Future<void> saveHomeToCache(HomeResponse homeResponse) async {
     cacheMap[CACHE_HOME_KEY] = CachedItem(homeResponse);
   }
+
+  @override
+  void clearCache() {
+    cacheMap.clear();
+  }
+
+  @override
+  void removeFromCache(String key) {
+    cacheMap.remove(key);
+  }
 }
