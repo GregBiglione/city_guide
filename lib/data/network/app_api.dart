@@ -1,5 +1,6 @@
 import 'package:city_guide/app/constant.dart';
 import 'package:city_guide/data/response/home_response.dart';
+import 'package:city_guide/data/response/store_detail_response.dart';
 import 'package:dio/dio.dart';
 import 'package:retrofit/http.dart';
 
@@ -37,4 +38,7 @@ abstract class AppServiceClient {
 
   @GET("/home")
   Future<HomeResponse> getHome();
+
+  @GET("/storeDetails/1")
+  Future<StoreDetailResponse> getStoreDetail();
 }
