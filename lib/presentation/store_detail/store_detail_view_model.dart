@@ -1,8 +1,11 @@
 import 'dart:async';
+import 'dart:ffi';
 
 import 'package:city_guide/domain/model/detail_store.dart';
 import 'package:city_guide/domain/usecase/store_detail_usecase.dart';
 import 'package:city_guide/presentation/base/base_view_model.dart';
+import 'package:city_guide/presentation/common/state_renderer/state_renderer.dart';
+import 'package:city_guide/presentation/common/state_renderer/state_renderer_implementer.dart';
 import 'package:rxdart/rxdart.dart';
 
 class StoreDetailViewModel extends BaseViewModel with StoreDetailViewModelInput,
@@ -15,7 +18,8 @@ class StoreDetailViewModel extends BaseViewModel with StoreDetailViewModelInput,
   // Input ---------------------------------------------------------------------
   @override
   void start() {
-    // TODO: implement start
+    // View tells state to show content of the screen --------------------------
+    _getStoreDetail();
   }
 
   @override
@@ -31,6 +35,24 @@ class StoreDetailViewModel extends BaseViewModel with StoreDetailViewModelInput,
   @override
   Stream<StoreDetail> get outputStoreDetail => _dataStreamController.stream
       .map((data) => data);
+
+  // Private function ----------------------------------------------------------
+  _getStoreDetail() async {
+    inputState.add(LoadingState(stateRendererType: StateRendererType.FULL_SCREEN_LOADING_STATE));
+
+    (await _storeDetailUseCase.execute(Void)).fold(
+            (failure) {
+              // Failure -------------------------------------------------------
+              inputState.add(ErrorState(StateRendererType.FULL_SCREEN_ERROR_STATE, failure.message));
+            },
+            (storeDetail) {
+              // Store detail --------------------------------------------------
+              inputState.add(ContentState());
+              // Data inside store detail --------------------------------------
+              inputStoreDetail.add(storeDetail);
+            },
+    );
+  }
 }
 
 // Input means order that view model will receive from view --------------------
