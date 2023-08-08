@@ -96,8 +96,11 @@ class _StoreDetailViewState extends State<StoreDetailView> {
               ),
           ),
           _getSection(AppString.details),
+          _getContentText(storeDetail.details),
           _getSection(AppString.services),
+          _getContentText(storeDetail.services),
           _getSection(AppString.about),
+          _getContentText(storeDetail.about),
         ],
       );
     }
@@ -122,4 +125,15 @@ class _StoreDetailViewState extends State<StoreDetailView> {
       style: Theme.of(context).textTheme.headlineMedium,
     ),
   );
+
+  //----------------------------------------------------------------------------
+  // Content text widget
+  //----------------------------------------------------------------------------
+
+  Widget _getContentText(String info) {
+    return Padding(
+      padding: const EdgeInsets.all(AppSize.s12),
+      child: Text(info, style: Theme.of(context).textTheme.bodySmall),
+    );
+  }
 }
