@@ -9,9 +9,11 @@ import 'package:city_guide/domain/repository/repository.dart';
 import 'package:city_guide/domain/usecase/home_usecase.dart';
 import 'package:city_guide/domain/usecase/login_usecase.dart';
 import 'package:city_guide/domain/usecase/register_use_case.dart';
+import 'package:city_guide/domain/usecase/store_detail_usecase.dart';
 import 'package:city_guide/presentation/forgot_password/forgot_password_view_model.dart';
 import 'package:city_guide/presentation/login/login_view_model.dart';
 import 'package:city_guide/presentation/register/register_view_model.dart';
+import 'package:city_guide/presentation/store_detail/store_detail_view_model.dart';
 import 'package:get_it/get_it.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
@@ -98,5 +100,14 @@ initHomeModule() {
     instance.registerFactory<HomeUseCase>(() => HomeUseCase(instance()));
     // Home view model instance ------------------------------------------------
     instance.registerFactory<HomeViewModel>(() => HomeViewModel(instance()));
+  }
+}
+
+initStoreDetailModule() {
+  if(!GetIt.I.isRegistered<StoreDetailUseCase>()) {
+    // Store detail use case instance ------------------------------------------
+    instance.registerFactory<StoreDetailUseCase>(() => StoreDetailUseCase(instance()));
+    // Store detail view model instance ----------------------------------------
+    instance.registerFactory<StoreDetailViewModel>(() => StoreDetailViewModel(instance()));
   }
 }
