@@ -54,4 +54,12 @@ class AppPreferences {
     return _sharedPreferences.getBool(PREFERENCES_KEY_IS_USER_LOGGED_IN)
         ?? false;
   }
+
+  //----------------------------------------------------------------------------
+  // Remove preferences for user logged in
+  //----------------------------------------------------------------------------
+
+  Future<void> logout() async {
+    _sharedPreferences.remove(PREFERENCES_KEY_IS_USER_LOGGED_IN);
+  }
 }
