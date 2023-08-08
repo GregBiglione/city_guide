@@ -111,3 +111,13 @@ initStoreDetailModule() {
     instance.registerFactory<StoreDetailViewModel>(() => StoreDetailViewModel(instance()));
   }
 }
+
+resetAllModules() {
+  instance.reset(dispose: false);
+  initAppModule();
+  initLoginModule();
+  initRegisterModule();
+  initForgotPasswordModule();
+  initHomeModule();
+  initStoreDetailModule();
+}

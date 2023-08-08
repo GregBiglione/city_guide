@@ -22,11 +22,12 @@ class DioFactory {
     Dio dio = Dio();
     Duration timeOut = const Duration(seconds: 60);
     String language = await _appPreferences.getApplicationLanguage();
+    String token = await _appPreferences.getToken();
 
     Map<String, String> header = {
       CONTENT_TYPE: APPLICATION_JSON,
       ACCEPT: APPLICATION_JSON,
-      AUTHORIZATION: Constant.token,
+      AUTHORIZATION: token,
       DEFAULT_LANGUAGE: language,
     };
 

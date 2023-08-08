@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 const String PREFERENCES_KEY_LANGUAGE = "PREFERENCES_KEY_LANGUAGE";
 const String PREFERENCES_KEY_ON_BOARDING_SCREEN = "PREFERENCES_KEY_ON_BOARDING_SCREEN";
 const String PREFERENCES_KEY_IS_USER_LOGGED_IN = "PREFERENCES_KEY_IS_USER_LOGGED_IN";
+const String PREFERENCES_KEY_TOKEN = "PREFERENCES_KEY_TOKEN";
 
 class AppPreferences {
   final SharedPreferences _sharedPreferences;
@@ -98,5 +99,21 @@ class AppPreferences {
 
   Future<void> logout() async {
     _sharedPreferences.remove(PREFERENCES_KEY_IS_USER_LOGGED_IN);
+  }
+
+  //----------------------------------------------------------------------------
+  // Set preferences for user token
+  //----------------------------------------------------------------------------
+
+  Future<void> setToken(String token) async {
+    _sharedPreferences.setString(PREFERENCES_KEY_TOKEN, token);
+  }
+
+  //----------------------------------------------------------------------------
+  // Get preferences for user token
+  //----------------------------------------------------------------------------
+
+  Future<String> getToken() async {
+    return _sharedPreferences.getString(PREFERENCES_KEY_TOKEN) ?? "No token saved";
   }
 }
