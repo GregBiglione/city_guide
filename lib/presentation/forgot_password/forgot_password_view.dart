@@ -141,7 +141,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
   // Resend
   //----------------------------------------------------------------------------
 
-  Widget _resendText() => Padding(
+  /*Widget _resendText() => Padding(
     padding: const EdgeInsets.only(
       top: AppPadding.p8,
       right: AppPadding.p28,
@@ -154,5 +154,5 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
         style: Theme.of(context).textTheme.titleSmall,
       ),
     ),
-  );
+  );*/
 }
