@@ -152,7 +152,7 @@ class RepositoryImplementer implements Repository {
 
           if(response.status == ApiInternalStatus.SUCCESS) {
             // Ok --------------------------------------------------------------
-            // Save response in local data source ------------------------------------
+            // Save response in local data source ------------------------------
             _localDataSource.saveHomeToCache(response);
 
             return Right(response.toDomain());
@@ -183,32 +183,44 @@ class RepositoryImplementer implements Repository {
 
   @override
   Future<Either<Failure, StoreDetail>> getStoreDetail() async {
-    if(await _networkInfo.isConnected) {
-      try {
-        // It's safe to call the API -------------------------------------------
-        final response = await _remoteDataSource.getStoreDetail();
+    try {
+      // Get data from cache ---------------------------------------------------
+      final response = await _localDataSource.getStoreDetail();
 
-        if(response.status == ApiInternalStatus.SUCCESS) {
-          // Ok ----------------------------------------------------------------
-          return Right(response.toDomain());
-        }
-        else {
-          // Business logic error ----------------------------------------------
-          return Left(
-            Failure(
-                response.status ?? ResponseCode.DEFAULT,
-                response.message ?? ResponseMessage.DEFAULT
-            ),
-          );
-        }
-
-      } catch (e) {
-        return Left(ErrorHandler.handle(e).failure);
-      }
+      return Right(response.toDomain());
     }
-    else {
-      // Connection error ------------------------------------------------------
-      return Left(ErrorDataSource.NO_INTERNET_CONNECTION.getFailure());
+    catch(cacheError) {
+      // Cache error get data from API -----------------------------------------
+      if(await _networkInfo.isConnected) {
+        try {
+          // It's safe to call the API -----------------------------------------
+          final response = await _remoteDataSource.getStoreDetail();
+
+          if(response.status == ApiInternalStatus.SUCCESS) {
+            // Ok --------------------------------------------------------------
+            // Save response in local data source ------------------------------
+            _localDataSource.saveStoreDetailToCache(response);
+
+            return Right(response.toDomain());
+          }
+          else {
+            // Business logic error --------------------------------------------
+            return Left(
+              Failure(
+                  response.status ?? ResponseCode.DEFAULT,
+                  response.message ?? ResponseMessage.DEFAULT
+              ),
+            );
+          }
+
+        } catch (e) {
+          return Left(ErrorHandler.handle(e).failure);
+        }
+      }
+      else {
+        // Connection error ------------------------------------------------------
+        return Left(ErrorDataSource.NO_INTERNET_CONNECTION.getFailure());
+      }
     }
   }
 }

@@ -1,12 +1,15 @@
 import 'package:city_guide/data/network/error_data_source.dart';
 import 'package:city_guide/data/network/error_handler.dart';
 import 'package:city_guide/data/response/home_response.dart';
+import 'package:city_guide/data/response/store_detail_response.dart';
 
 import 'cached_item.dart';
 import 'local_data_source.dart';
 
 const String CACHE_HOME_KEY = "CACHE_HOME_KEY";
 const int CACHE_HOME_INTERVAL = 60 * 1000; // 1' en ms
+const String CACHE_STORE_DETAIL_KEY = "CACHE_STORE_DETAIL_KEY";
+const int CACHE_STORE_DETAIL_INTERVAL = 60 * 1000; // 1' en ms
 
 class LocalDataSourceImplementer implements LocalDataSource {
   // Run time cache ------------------------------------------------------------
@@ -40,5 +43,24 @@ class LocalDataSourceImplementer implements LocalDataSource {
   @override
   void removeFromCache(String key) {
     cacheMap.remove(key);
+  }
+
+  @override
+  Future<StoreDetailResponse> getStoreDetail() async {
+    CachedItem? cachedItem = cacheMap[CACHE_STORE_DETAIL_KEY];
+
+    if(cachedItem != null && cachedItem.isValid(CACHE_STORE_DETAIL_INTERVAL)) {
+      // Return response from cache --------------------------------------------
+      return cachedItem.data;
+    }
+    else {
+      // Return error that cache isn't valid -----------------------------------
+      throw ErrorHandler.handle(ErrorDataSource.CACHE_ERROR);
+    }
+  }
+
+  @override
+  Future<void> saveStoreDetailToCache(StoreDetailResponse storeDetailResponse) async {
+    cacheMap[CACHE_STORE_DETAIL_KEY] = CachedItem(storeDetailResponse);
   }
 }
