@@ -6,6 +6,7 @@ import 'package:city_guide/presentation/main/home/home_view_model.dart';
 import 'package:city_guide/presentation/ressource/color_manager.dart';
 import 'package:city_guide/presentation/ressource/string_manager.dart';
 import 'package:city_guide/presentation/ressource/value_manager.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../../../app/di/di.dart';
@@ -67,9 +68,9 @@ class _HomeViewState extends State<HomeView> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _getCarouselBanner(snapshot.data?.banners),
-          _getSection(AppString.services),
+          _getSection(AppString.services.tr()),
           _getService(snapshot.data?.services),
-          _getSection(AppString.stores),
+          _getSection(AppString.stores.tr()),
           _getStore(snapshot.data?.stores),
         ],
       );

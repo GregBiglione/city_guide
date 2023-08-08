@@ -1,6 +1,7 @@
 import 'package:city_guide/presentation/common/state_renderer/state_renderer_implementer.dart';
 import 'package:city_guide/presentation/forgot_password/forgot_password_view_model.dart';
 import 'package:city_guide/presentation/ressource/color_manager.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../../app/di/di.dart';
@@ -96,11 +97,11 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
           controller: _emailController,
           keyboardType: TextInputType.emailAddress,
           decoration: InputDecoration(
-            hintText: AppString.email,
-            labelText: AppString.email,
+            hintText: AppString.email.tr(),
+            labelText: AppString.email.tr(),
             errorText: (snapshot.data ?? true)
                 ? null
-                : AppString.emailError,
+                : AppString.emailError.tr(),
           ),
         );
       },
@@ -130,29 +131,10 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                 : null,
             child: const Text(
               AppString.resetPassword,
-            ),
+            ).tr(),
           ),
         );
       },
     ),
   );
-
-  //----------------------------------------------------------------------------
-  // Resend
-  //----------------------------------------------------------------------------
-
-  /*Widget _resendText() => Padding(
-    padding: const EdgeInsets.only(
-      top: AppPadding.p8,
-      right: AppPadding.p28,
-      left: AppPadding.p28,
-    ),
-    child: TextButton(
-      onPressed: () {},
-      child: Text(
-        AppString.resetText,
-        style: Theme.of(context).textTheme.titleSmall,
-      ),
-    ),
-  );*/
 }

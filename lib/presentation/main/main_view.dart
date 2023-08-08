@@ -5,6 +5,7 @@ import 'package:city_guide/presentation/main/setting_view.dart';
 import 'package:city_guide/presentation/ressource/color_manager.dart';
 import 'package:city_guide/presentation/ressource/string_manager.dart';
 import 'package:city_guide/presentation/ressource/value_manager.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class MainView extends StatefulWidget {
@@ -22,12 +23,12 @@ class _MainViewState extends State<MainView> {
     const SettingView(),
   ];
   List<String> titles = [
-    AppString.home,
-    AppString.search,
-    AppString.notification,
-    AppString.setting,
+    AppString.home.tr(),
+    AppString.search.tr(),
+    AppString.notification.tr(),
+    AppString.setting.tr(),
   ];
-  late String _title = AppString.home;
+  late String _title = AppString.home.tr();
   int _currentIndex = 0;
 
   @override
@@ -54,30 +55,30 @@ class _MainViewState extends State<MainView> {
           selectedItemColor: ColorManager.primary,
           unselectedItemColor: ColorManager.grey,
           onTap: switchIndex,
-          items: const [
+          items: [
             BottomNavigationBarItem(
-              icon: Icon(
+              icon: const Icon(
                 Icons.home,
               ),
-              label: AppString.home
+              label: AppString.home.tr()
             ),
             BottomNavigationBarItem(
-              icon: Icon(
+              icon: const Icon(
                 Icons.search,
               ),
-                label: AppString.search
+                label: AppString.search.tr()
             ),
             BottomNavigationBarItem(
-              icon: Icon(
+              icon: const Icon(
                 Icons.notifications,
               ),
-              label: AppString.notification
+              label: AppString.notification.tr()
             ),
             BottomNavigationBarItem(
-              icon: Icon(
+              icon: const Icon(
                 Icons.settings,
               ),
-              label: AppString.setting
+              label: AppString.setting.tr()
             ),
           ],
         ),

@@ -2,6 +2,7 @@ import 'package:city_guide/presentation/on_boarding/on_boarding_view_model.dart'
 import 'package:city_guide/presentation/ressource/asset_manager.dart';
 import 'package:city_guide/presentation/ressource/color_manager.dart';
 import 'package:city_guide/presentation/ressource/value_manager.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -93,7 +94,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
                             AppString.skip,
                             style: Theme.of(context).textTheme.titleSmall,
                             textAlign: TextAlign.end,
-                          ),
+                          ).tr(),
                       ),
                     ),
                     _getBottomSheet(sliderViewObject),

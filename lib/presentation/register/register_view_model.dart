@@ -5,6 +5,7 @@ import 'package:city_guide/domain/usecase/register_use_case.dart';
 import 'package:city_guide/domain/usecase/register_use_case_input.dart';
 import 'package:city_guide/presentation/base/base_view_model.dart';
 import 'package:city_guide/presentation/ressource/string_manager.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 import '../../app/function.dart';
 import '../common/register.dart';
@@ -186,7 +187,7 @@ class RegisterViewModel extends BaseViewModel with RegisterViewModelInput,
   Stream<String?> get outputErrorUsername =>
       outputIsUsernameValid.map((isUsernameValid) => isUsernameValid
           ? null
-          : AppString.invalidUserName,
+          : AppString.invalidUserName.tr(),
   );
 
   // Mobile number -------------------------------------------------------------
@@ -198,7 +199,7 @@ class RegisterViewModel extends BaseViewModel with RegisterViewModelInput,
   Stream<String?> get outputErrorMobileNumber =>
       outputIsMobileNumberValid.map((isMobileNumberValid) => isMobileNumberValid
           ? null
-          : AppString.invalidMobileNumber,
+          : AppString.invalidMobileNumber.tr(),
       );
 
   // Email ---------------------------------------------------------------------
@@ -210,7 +211,7 @@ class RegisterViewModel extends BaseViewModel with RegisterViewModelInput,
   Stream<String?> get outputErrorEmail =>
       outputIsEmailValid.map((isEmailValid) => isEmailValid
           ? null
-          : AppString.invalidEmail,
+          : AppString.invalidEmail.tr(),
       );
 
   // Password ------------------------------------------------------------------
@@ -222,7 +223,7 @@ class RegisterViewModel extends BaseViewModel with RegisterViewModelInput,
   Stream<String?> get outputErrorPassword =>
       outputIsPasswordValid.map((isPasswordValid) => isPasswordValid
           ? null
-          : AppString.invalidPassword,
+          : AppString.invalidPassword.tr(),
       );
 
   // Profile picture -----------------------------------------------------------

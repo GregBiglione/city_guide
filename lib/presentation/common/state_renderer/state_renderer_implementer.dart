@@ -1,6 +1,7 @@
 import 'package:city_guide/data/mapper/mapper.dart';
 import 'package:city_guide/presentation/common/state_renderer/state_renderer.dart';
 import 'package:city_guide/presentation/ressource/string_manager.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 abstract class FlowState {
@@ -14,7 +15,7 @@ class LoadingState extends FlowState {
   String message;
 
   LoadingState({required this.stateRendererType, String? message}) :
-        message = message ?? AppString.loading;
+        message = message ?? AppString.loading.tr();
 
   @override
   String getMessage() => message;
@@ -126,7 +127,7 @@ extension FlowStateExtension on FlowState {
       case SuccessState: {
         dismissDialog(context);
         showPopUp(context, getStateRenderType(), getMessage(),
-            title: AppString.successTitle);
+            title: AppString.successTitle.tr());
         return contentScreenWidget;
       }
       default: {

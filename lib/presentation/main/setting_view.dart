@@ -1,5 +1,6 @@
 import 'package:city_guide/data/data_source/local_data_source.dart';
 import 'package:city_guide/presentation/ressource/value_manager.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -30,7 +31,7 @@ class _SettingViewState extends State<SettingView> {
           title: Text(
             AppString.changeLang,
             style: Theme.of(context).textTheme.headlineSmall,
-          ),
+          ).tr(),
           trailing: SvgPicture.asset(ImageAsset.settingRightArrowIc),
           onTap: () {
             _changeLanguage();
@@ -41,7 +42,7 @@ class _SettingViewState extends State<SettingView> {
           title: Text(
             AppString.contactUs,
             style: Theme.of(context).textTheme.headlineSmall,
-          ),
+          ).tr(),
           trailing: SvgPicture.asset(ImageAsset.settingRightArrowIc),
           onTap: () {
             _contactUs();
@@ -52,7 +53,7 @@ class _SettingViewState extends State<SettingView> {
           title: Text(
             AppString.inviteYourFriends,
             style: Theme.of(context).textTheme.headlineSmall,
-          ),
+          ).tr(),
           trailing: SvgPicture.asset(ImageAsset.settingRightArrowIc),
           onTap: () {
             _inviteFriends();
@@ -63,7 +64,7 @@ class _SettingViewState extends State<SettingView> {
           title: Text(
             AppString.logout,
             style: Theme.of(context).textTheme.headlineSmall,
-          ),
+          ).tr(),
           trailing: SvgPicture.asset(ImageAsset.settingRightArrowIc),
           onTap: () {
             _logout();

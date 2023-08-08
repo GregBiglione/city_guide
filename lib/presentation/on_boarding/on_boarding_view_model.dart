@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:city_guide/domain/model/slider.dart';
 import 'package:city_guide/presentation/base/base_view_model.dart';
 import 'package:city_guide/presentation/on_boarding/on_boarding_view.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 import '../ressource/asset_manager.dart';
 import '../ressource/string_manager.dart';
@@ -64,14 +65,14 @@ class OnBoardingViewModel extends BaseViewModel with OnBoardingViewModelInput,
 
   // Private function ----------------------------------------------------------
   List<SliderObject> _getSliderDate() => [
-    SliderObject(AppString.onBoardingTitle1,
-        AppString.onBoardingSubTitle1, ImageAsset.onBoardingLogo1),
-    SliderObject(AppString.onBoardingTitle2,
-        AppString.onBoardingSubTitle2, ImageAsset.onBoardingLogo2),
-    SliderObject(AppString.onBoardingTitle3,
-        AppString.onBoardingSubTitle3, ImageAsset.onBoardingLogo3),
-    SliderObject(AppString.onBoardingTitle4,
-        AppString.onBoardingSubTitle4, ImageAsset.onBoardingLogo4),
+    SliderObject(AppString.onBoardingTitle1.tr(),
+        AppString.onBoardingSubTitle1.tr(), ImageAsset.onBoardingLogo1),
+    SliderObject(AppString.onBoardingTitle2.tr(),
+        AppString.onBoardingSubTitle2.tr(), ImageAsset.onBoardingLogo2),
+    SliderObject(AppString.onBoardingTitle3.tr(),
+        AppString.onBoardingSubTitle3.tr(), ImageAsset.onBoardingLogo3),
+    SliderObject(AppString.onBoardingTitle4.tr(),
+        AppString.onBoardingSubTitle4.tr(), ImageAsset.onBoardingLogo4),
   ];
 
   _postDataToView() {

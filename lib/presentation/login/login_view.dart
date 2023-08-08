@@ -4,6 +4,7 @@ import 'package:city_guide/presentation/common/state_renderer/state_renderer_imp
 import 'package:city_guide/presentation/login/login_view_model.dart';
 import 'package:city_guide/presentation/ressource/color_manager.dart';
 import 'package:city_guide/presentation/ressource/value_manager.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 
@@ -112,11 +113,11 @@ class _LoginViewState extends State<LoginView> {
           controller: _usernameController,
           keyboardType: TextInputType.emailAddress,
           decoration: InputDecoration(
-            hintText: AppString.username,
-            labelText: AppString.username,
+            hintText: AppString.username.tr(),
+            labelText: AppString.username.tr(),
             errorText: (snapshot.data ?? true)
                 ? null
-                : AppString.usernameError,
+                : AppString.usernameError.tr(),
           ),
         );
       },
@@ -139,11 +140,11 @@ class _LoginViewState extends State<LoginView> {
           controller: _passwordController,
           keyboardType: TextInputType.visiblePassword,
           decoration: InputDecoration(
-            hintText: AppString.password,
-            labelText: AppString.password,
+            hintText: AppString.password.tr(),
+            labelText: AppString.password.tr(),
             errorText: (snapshot.data ?? true)
                 ? null
-                : AppString.passwordError,
+                : AppString.passwordError.tr(),
           ),
         );
       },
@@ -173,7 +174,7 @@ class _LoginViewState extends State<LoginView> {
                   : null,
             child: const Text(
               AppString.login,
-            ),
+            ).tr(),
           ),
         );
       },
@@ -201,7 +202,7 @@ class _LoginViewState extends State<LoginView> {
           child: Text(
             AppString.forgetPassword,
             style: Theme.of(context).textTheme.titleSmall,
-          ),
+          ).tr(),
         ),
         TextButton(
           onPressed: () {
@@ -211,7 +212,7 @@ class _LoginViewState extends State<LoginView> {
           child: Text(
             AppString.registerText,
             style: Theme.of(context).textTheme.titleSmall,
-          ),
+          ).tr(),
         ),
       ],
     ),

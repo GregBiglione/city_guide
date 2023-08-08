@@ -2,6 +2,7 @@ import 'package:city_guide/domain/model/detail_store.dart';
 import 'package:city_guide/presentation/common/state_renderer/state_renderer_implementer.dart';
 import 'package:city_guide/presentation/ressource/color_manager.dart';
 import 'package:city_guide/presentation/store_detail/store_detail_view_model.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../../app/di/di.dart';
@@ -55,7 +56,7 @@ class _StoreDetailViewState extends State<StoreDetailView> {
   Widget _getContentWidget() => Scaffold(
     backgroundColor: ColorManager.white,
     appBar: AppBar(
-      title: const Text(AppString.storeDetails),
+      title: const Text(AppString.storeDetails).tr(),
       elevation: AppSize.s0,
       iconTheme: IconThemeData(
         //back button
@@ -95,11 +96,11 @@ class _StoreDetailViewState extends State<StoreDetailView> {
                 height: 250,
               ),
           ),
-          _getSection(AppString.details),
+          _getSection(AppString.details.tr()),
           _getContentText(storeDetail.details),
-          _getSection(AppString.services),
+          _getSection(AppString.services.tr()),
           _getContentText(storeDetail.services),
-          _getSection(AppString.about),
+          _getSection(AppString.about.tr()),
           _getContentText(storeDetail.about),
         ],
       );
