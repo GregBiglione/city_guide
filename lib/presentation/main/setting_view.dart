@@ -1,7 +1,9 @@
 import 'package:city_guide/data/data_source/local_data_source.dart';
+import 'package:city_guide/presentation/ressource/language_manager.dart';
 import 'package:city_guide/presentation/ressource/value_manager.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../app/app_preferences.dart';
@@ -9,6 +11,7 @@ import '../../app/di/di.dart';
 import '../ressource/asset_manager.dart';
 import '../ressource/route_manager.dart';
 import '../ressource/string_manager.dart';
+import 'dart:math' as math;
 
 class SettingView extends StatefulWidget {
   const SettingView({Key? key}) : super(key: key);
@@ -32,7 +35,14 @@ class _SettingViewState extends State<SettingView> {
             AppString.changeLang,
             style: Theme.of(context).textTheme.headlineSmall,
           ).tr(),
-          trailing: SvgPicture.asset(ImageAsset.settingRightArrowIc),
+          trailing: Transform(
+            alignment: Alignment.center,
+            transform: Matrix4.rotationY(isTextRightToLeft()
+                ? math.pi
+                : 0,
+            ),
+            child: SvgPicture.asset(ImageAsset.settingRightArrowIc),
+          ),
           onTap: () {
             _changeLanguage();
           },
@@ -43,7 +53,14 @@ class _SettingViewState extends State<SettingView> {
             AppString.contactUs,
             style: Theme.of(context).textTheme.headlineSmall,
           ).tr(),
-          trailing: SvgPicture.asset(ImageAsset.settingRightArrowIc),
+          trailing: Transform(
+            alignment: Alignment.center,
+            transform: Matrix4.rotationY(isTextRightToLeft()
+                ? math.pi
+                : 0,
+            ),
+            child: SvgPicture.asset(ImageAsset.settingRightArrowIc),
+          ),
           onTap: () {
             _contactUs();
           },
@@ -54,7 +71,14 @@ class _SettingViewState extends State<SettingView> {
             AppString.inviteYourFriends,
             style: Theme.of(context).textTheme.headlineSmall,
           ).tr(),
-          trailing: SvgPicture.asset(ImageAsset.settingRightArrowIc),
+          trailing: Transform(
+            alignment: Alignment.center,
+            transform: Matrix4.rotationY(isTextRightToLeft()
+                ? math.pi
+                : 0,
+            ),
+            child: SvgPicture.asset(ImageAsset.settingRightArrowIc),
+          ),
           onTap: () {
             _inviteFriends();
           },
@@ -65,7 +89,14 @@ class _SettingViewState extends State<SettingView> {
             AppString.logout,
             style: Theme.of(context).textTheme.headlineSmall,
           ).tr(),
-          trailing: SvgPicture.asset(ImageAsset.settingRightArrowIc),
+          trailing: Transform(
+            alignment: Alignment.center,
+            transform: Matrix4.rotationY(isTextRightToLeft()
+                ? math.pi
+                : 0,
+            ),
+            child: SvgPicture.asset(ImageAsset.settingRightArrowIc),
+          ),
           onTap: () {
             _logout();
           },
@@ -78,7 +109,19 @@ class _SettingViewState extends State<SettingView> {
   // Change language
   //----------------------------------------------------------------------------
 
-  void _changeLanguage() {}
+  void _changeLanguage() {
+    _appPreferences.setLanguageChanged();
+    // Restart to apply languages changes --------------------------------------
+    Phoenix.rebirth(context);
+  }
+
+  //----------------------------------------------------------------------------
+  // Check if text is right to left
+  //----------------------------------------------------------------------------
+
+  bool isTextRightToLeft() {
+    return context.locale == ARABIC_LOCALE;
+  }
 
   //----------------------------------------------------------------------------
   // Contact us
