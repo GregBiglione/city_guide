@@ -84,10 +84,42 @@ class _StoreDetailViewState extends State<StoreDetailView> {
 
   Widget _getItems(StoreDetail? storeDetail) {
     if(storeDetail != null) {
-      return Container();
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Center(
+              child: Image.network(
+                storeDetail.image,
+                fit: BoxFit.cover,
+                width: double.infinity,
+                height: 250,
+              ),
+          ),
+          _getSection(AppString.details),
+          _getSection(AppString.services),
+          _getSection(AppString.about),
+        ],
+      );
     }
     else {
       return Container();
     }
   }
+
+  //----------------------------------------------------------------------------
+  // Section widget
+  //----------------------------------------------------------------------------
+
+  Widget _getSection(String title) => Padding(
+    padding: const EdgeInsets.only(
+      top: AppPadding.p12,
+      right: AppPadding.p12,
+      bottom: AppPadding.p2,
+      left: AppPadding.p12,
+    ),
+    child: Text(
+      title,
+      style: Theme.of(context).textTheme.headlineMedium,
+    ),
+  );
 }
