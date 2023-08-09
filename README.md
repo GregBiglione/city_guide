@@ -32,26 +32,20 @@
  <li><a href="https://pub.dev/packages/json_annotation">json_annotation</a></li> 
  <li><a href="https://pub.dev/packages/dartz">dartz</a></li>
  <li><a href="https://pub.dev/packages/internet_connection_checker">internet_connection_checker</a></li>
-
  <li><a href="https://pub.dev/packages/pretty_dio_logger">pretty_dio_logger</a></li>
-
-
-  
- <li><a href="https://pub.dev/packages/pretty_dio_logger"></a></li>
- <li><a href="https://pub.dev/packages/device_info_plus"></a>device_info_plus</li>
-  
- <li><a href="https://pub.dev/packages/freezed"></a>freezed</li>
- <li><a href="https://pub.dev/packages/get_it"></a>get_it</li>
- <li><a href="https://pub.dev/packages/lottie"></a>lottie</li>
- <li><a href="https://pub.dev/packages/email_validator"></a>email_validator</li>
- <li><a href="https://pub.dev/packages/country_code_picker"></a>country_code_picker</li>
- <li><a href="https://pub.dev/packages/image_picker"></a>image_picker</li>
- <li><a href="https://pub.dev/packages/rxdart"></a>rxdart</li>
- <li><a href="https://pub.dev/packages/carousel_slider"></a>carousel_slider</li>
- <li><a href="https://pub.dev/packages/easy_localization"></a>easy_localization</li>
- <li><a href="https://pub.dev/packages/flutter_phoenix"></a>flutter_phoenix</li>
- <li><a href="https://pub.dev/packages/json_serializable"></a>json_serializable</li>
- <li><a href="https://pub.dev/packages/build_runner"></a>build_runner</li>
+ <li><a href="https://pub.dev/packages/device_info_plus">device_info_plus</a></li>
+ <li><a href="https://pub.dev/packages/freezed">freezed</a></li>
+ <li><a href="https://pub.dev/packages/get_it">get_it</a></li>
+ <li><a href="https://pub.dev/packages/lottie">lottie</a></li>
+ <li><a href="https://pub.dev/packages/email_validator">email_validator</a></li>
+ <li><a href="https://pub.dev/packages/country_code_picker">country_code_picker</a></li>
+ <li><a href="https://pub.dev/packages/image_picker">image_picker</a></li>
+ <li><a href="https://pub.dev/packages/rxdart">rxdart</a></li>
+ <li><a href="https://pub.dev/packages/carousel_slider">carousel_slider</a></li>
+ <li><a href="https://pub.dev/packages/easy_localization">easy_localization</a></li>
+ <li><a href="https://pub.dev/packages/flutter_phoenix">flutter_phoenix</a></li>
+ <li><a href="https://pub.dev/packages/json_serializable">json_serializable</a></li>
+ <li><a href="https://pub.dev/packages/build_runner">build_runner</a></li>
 </ul>
 
 <h2>API</h2></br>
