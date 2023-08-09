@@ -34,6 +34,7 @@
  <li><a href="https://pub.dev/packages/internet_connection_checker">internet_connection_checker</a></li>
  <li><a href="https://pub.dev/packages/pretty_dio_logger"></a>pretty_dio_logger</li>
  <li><a href="https://pub.dev/packages/device_info_plus"></a>device_info_plus</li>
+  
  <li><a href="https://pub.dev/packages/freezed"></a>freezed</li>
  <li><a href="https://pub.dev/packages/get_it"></a>get_it</li>
  <li><a href="https://pub.dev/packages/lottie"></a>lottie</li>
@@ -56,6 +57,6 @@
 <h2>Languages available</h2></br>
 
 <ul>
- <li><img src ="https://github.com/GregBiglione/netflix/blob/master/assets/images/us.png" title = "en" alt = "en" width="20" height="12"> English</li> 
- <li><img src ="https://github.com/GregBiglione/netflix/blob/master/assets/images/sa.png" title = "sa" alt = "ru" width="20" height="12"> Arabic</li>
+ <li><img src ="https://github.com/GregBiglione/tut_app/blob/master/assets/images/us.png" title = "en" alt = "en" width="20" height="12"> English</li> 
+ <li><img src ="https://github.com/GregBiglione/tut_app/blob/master/assets/images/sa.png" title = "sa" alt = "su" width="20" height="12"> Arabic</li>
 </ul>ul>
