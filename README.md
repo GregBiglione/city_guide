@@ -32,7 +32,12 @@
  <li><a href="https://pub.dev/packages/json_annotation">json_annotation</a></li> 
  <li><a href="https://pub.dev/packages/dartz">dartz</a></li>
  <li><a href="https://pub.dev/packages/internet_connection_checker">internet_connection_checker</a></li>
- <li><a href="https://pub.dev/packages/pretty_dio_logger"></a>pretty_dio_logger</li>
+
+ <li><a href="https://pub.dev/packages/pretty_dio_logger">pretty_dio_logger</a></li>
+
+
+  
+ <li><a href="https://pub.dev/packages/pretty_dio_logger"></a></li>
  <li><a href="https://pub.dev/packages/device_info_plus"></a>device_info_plus</li>
   
  <li><a href="https://pub.dev/packages/freezed"></a>freezed</li>
@@ -59,4 +64,4 @@
 <ul>
  <li><img src ="https://github.com/GregBiglione/tut_app/blob/master/assets/images/us.png" title = "en" alt = "en" width="20" height="12"> English</li> 
  <li><img src ="https://github.com/GregBiglione/tut_app/blob/master/assets/images/sa.png" title = "sa" alt = "su" width="20" height="12"> Arabic</li>
-</ul>ul>
+</ul>
