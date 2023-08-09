@@ -13,6 +13,7 @@ import '../../../app/di/di.dart';
 import '../../../domain/model/banner.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
+import '../../ressource/language_manager.dart';
 import '../../ressource/route_manager.dart';
 
 class HomeView extends StatefulWidget {
@@ -129,6 +130,7 @@ class _HomeViewState extends State<HomeView> {
 
   Widget _getService(List<Service>? services) {
     if(services != null) {
+      //setArabicTitle(services);
       return Padding(
         padding: const EdgeInsets.only(
           left: AppPadding.p12,
@@ -154,25 +156,32 @@ class _HomeViewState extends State<HomeView> {
               ),
               child: Column(
                 children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(
-                      AppSize.s12,
-                    ),
-                    child: Image.network(
-                      service.image,
-                      fit: BoxFit.cover,
-                      width: AppSize.s100,
-                      height: AppSize.s100,
+                  Expanded(
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(
+                        AppSize.s12,
+                      ),
+                      child: Image.network(
+                        service.image,
+                        fit: BoxFit.cover,
+                        width: AppSize.s100,
+                        height: AppSize.s100,
+                      ),
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: AppPadding.p8),
                     child: Align(
                       alignment: Alignment.center,
-                      child: Text(
-                        service.title,
-                        textAlign: TextAlign.center,
-                      ),
+                      child: context.locale == ARABIC_LOCALE
+                          ? Text(
+                             "${AppString.service.tr()} ${service.id}",
+                             textAlign: TextAlign.center,
+                            )
+                          : Text(
+                             service.title,
+                             textAlign: TextAlign.center,
+                            ).tr(),
                     ),
                   ),
                 ],
