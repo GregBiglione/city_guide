@@ -16,8 +16,7 @@
 
 <h4>Splash screen, login screen, forget password screen</h4></br>
 
-<img src ="https://github.com/GregBiglione/tut_app/blob/master/assets/images/1_splash_screen.gif" title = "Splash screen" alt = "Splash screen" width="273" height="450"> <img src ="https://github.com/GregBiglione/netflix/blob/master/assets/images/2_home_screen.gif" title = "Login screen" alt = "Login screen" width="273" height="450"> <img src ="https://github.com/GregBiglione/tut_app/blob/master/assets/images/3_forgot_password.gif" title = "Forgot password screen" alt = "Forgot password screen" width="273" height="450">
-
+<img src ="https://github.com/GregBiglione/tut_app/blob/master/assets/images/1_splash_screen.gif" title = "Splash screen" alt = "Splash screen" width="273" height="450"> <img src ="https://github.com/GregBiglione/tut_app/blob/master/assets/images/2_login.gif" title = "Login screen" alt = "Login screen" width="273" height="450"> <img src ="https://github.com/GregBiglione/tut_app/blob/master/assets/images/3_forgot_password.gif" title = "Forgot password screen" alt = "Forgot password screen" width="273" height="450">
 
 <h4>Register screen, home screen & store details screen, display data from cache without reload, application in english & arabic</h4></br>
 
