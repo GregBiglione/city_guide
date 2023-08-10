@@ -8,6 +8,7 @@
   <li>Display content from API</li>
   <li>Add content in cache to don't call again the API to display some content</li>
   <li>Change application language inside the application</li>
+  <li>Check is user has an internet connection</li>
   <li>Application available in 2 languages</li>
 </ul>
 
@@ -21,6 +22,10 @@
 <h4>Register screen, home screen & store details screen, display data from cache without reload, application in english & arabic</h4></br>
 
 <img src ="https://github.com/GregBiglione/tut_app/blob/master/assets/images/4_register.gif" title = "Refister screen" alt = "Register screen" width="273" height="450"> <img src ="https://github.com/GregBiglione/tut_app/blob/master/assets/images/5_cache_data.gif" title = "Cache data" alt = "Cache data" width="273" height="450"> <img src ="https://github.com/GregBiglione/tut_app/blob/master/assets/images/6_multi_languages.gif" title = "Multi languages" alt = "Multi languages" width="273" height="450">
+
+<h4>Check internet connection</h4></br>
+
+<img src ="https://github.com/GregBiglione/tut_app/blob/master/assets/images/4_register.gif" title = "Internet connection" alt = "Internet connection" width="273" height="450">
 
 <h2>Packages</h2></br>
 <ul>
