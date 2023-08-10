@@ -5,10 +5,10 @@
   <li>Splash screen</li>
   <li>Login, register, forgot password, logout</li>
   <li>Access phone galery & camera</li>
-  <li>Display content from API</li>
+  <li>Display content from APIs</li>
   <li>Add content in cache to don't call again the API to display some content</li>
   <li>Change application language inside the application</li>
-  <li>Check is user has an internet connection</li>
+  <li>Check if user has an internet connection</li>
   <li>Application available in 2 languages</li>
 </ul>
 
@@ -25,7 +25,7 @@
 
 <h4>Check internet connection</h4></br>
 
-<img src ="https://github.com/GregBiglione/tut_app/blob/master/assets/images/4_register.gif" title = "Internet connection" alt = "Internet connection" width="273" height="450">
+<img src ="https://github.com/GregBiglione/tut_app/blob/master/assets/images/7_no_internet.gif" title = "Internet connection" alt = "Internet connection" width="273" height="450">
 
 <h2>Packages</h2></br>
 <ul>
